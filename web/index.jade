@@ -1,0 +1,18 @@
+doctype html
+html
+  head
+    meta(charset="utf-8")
+    title イカガカ
+    script(src="./browserfs.js")
+    script(src="./../node_modules/encoding-japanese/encoding.js")
+    script(src="./../node_modules/jszip/dist/jszip.js")
+    script(src="./../node_modules/narloader/NarLoader.js")
+    script(src="./../node_modules/shioriloader/lib/ShioriLoader.js")
+    script(src="./../node_modules/shioridetector-common_names/shioridetector-common_names.js")
+    script(src="./../node_modules/kawariworker.js/kawariworker-webworker-all.js")
+    script(src="./ikagaka_application.js")
+  body
+    button#ikagaka_boot Boot
+    button#ikagaka_close Close
+    button#ikagaka_delete Delete
+
