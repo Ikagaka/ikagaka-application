@@ -101,17 +101,17 @@ var ikagakaApplication =
 	
 	var _ghostKernel = __webpack_require__(142);
 	
-	__webpack_require__(145);
+	__webpack_require__(147);
 	
-	var _cuttlebone = __webpack_require__(160);
+	var _cuttlebone = __webpack_require__(163);
 	
 	var _cuttlebone2 = _interopRequireDefault(_cuttlebone);
 	
-	var _nanikaStorage = __webpack_require__(232);
+	var _nanikaStorage = __webpack_require__(235);
 	
 	var _nanikaStorage2 = _interopRequireDefault(_nanikaStorage);
 	
-	var _ukagakaTimerEventSource = __webpack_require__(243);
+	var _ukagakaTimerEventSource = __webpack_require__(246);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -8700,19 +8700,21 @@ var ikagakaApplication =
 	    }()
 	
 	    /**
-	     * close manager (emits close event)
+	     * boot named (emits boot event)
+	     * @param {string} namedId named id
+	     * @param {string} fromNamedId from named id
 	     * @return {void}
 	     */
 	
 	  }, {
-	    key: 'close',
+	    key: 'bootNamed',
 	    value: function () {
-	      var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2() {
+	      var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2(namedId, fromNamedId) {
 	        return _regenerator2.default.wrap(function _callee2$(_context2) {
 	          while (1) {
 	            switch (_context2.prev = _context2.next) {
 	              case 0:
-	                this.emit('close');
+	                this.emit('boot_named', namedId, fromNamedId);
 	
 	              case 1:
 	              case 'end':
@@ -8722,11 +8724,135 @@ var ikagakaApplication =
 	        }, _callee2, this);
 	      }));
 	
-	      function close() {
+	      function bootNamed(_x3, _x4) {
 	        return _ref2.apply(this, arguments);
 	      }
 	
+	      return bootNamed;
+	    }()
+	
+	    /**
+	     * close named (emits close event)
+	     * @param {string} namedId named id
+	     * @param {string} fromNamedId from named id
+	     * @return {void}
+	     */
+	
+	  }, {
+	    key: 'closeNamed',
+	    value: function () {
+	      var _ref3 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee3(namedId, fromNamedId) {
+	        return _regenerator2.default.wrap(function _callee3$(_context3) {
+	          while (1) {
+	            switch (_context3.prev = _context3.next) {
+	              case 0:
+	                this.emit('close_named', namedId);
+	
+	              case 1:
+	              case 'end':
+	                return _context3.stop();
+	            }
+	          }
+	        }, _callee3, this);
+	      }));
+	
+	      function closeNamed(_x5, _x6) {
+	        return _ref3.apply(this, arguments);
+	      }
+	
+	      return closeNamed;
+	    }()
+	
+	    /**
+	     * change named (emits change event)
+	     * @param {string} namedId named id
+	     * @param {string} fromNamedId from named id
+	     * @return {void}
+	     */
+	
+	  }, {
+	    key: 'changeNamed',
+	    value: function () {
+	      var _ref4 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee4(namedId, fromNamedId) {
+	        return _regenerator2.default.wrap(function _callee4$(_context4) {
+	          while (1) {
+	            switch (_context4.prev = _context4.next) {
+	              case 0:
+	                this.emit('change_named', namedId, fromNamedId);
+	
+	              case 1:
+	              case 'end':
+	                return _context4.stop();
+	            }
+	          }
+	        }, _callee4, this);
+	      }));
+	
+	      function changeNamed(_x7, _x8) {
+	        return _ref4.apply(this, arguments);
+	      }
+	
+	      return changeNamed;
+	    }()
+	
+	    /**
+	     * close manager (emits close event)
+	     * @return {void}
+	     */
+	
+	  }, {
+	    key: 'close',
+	    value: function () {
+	      var _ref5 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee5() {
+	        return _regenerator2.default.wrap(function _callee5$(_context5) {
+	          while (1) {
+	            switch (_context5.prev = _context5.next) {
+	              case 0:
+	                this.emit('close');
+	
+	              case 1:
+	              case 'end':
+	                return _context5.stop();
+	            }
+	          }
+	        }, _callee5, this);
+	      }));
+	
+	      function close() {
+	        return _ref5.apply(this, arguments);
+	      }
+	
 	      return close;
+	    }()
+	
+	    /**
+	     * halt manager (emits halt event)
+	     * @return {void}
+	     */
+	
+	  }, {
+	    key: 'halt',
+	    value: function () {
+	      var _ref6 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee6() {
+	        return _regenerator2.default.wrap(function _callee6$(_context6) {
+	          while (1) {
+	            switch (_context6.prev = _context6.next) {
+	              case 0:
+	                this.emit('halt');
+	
+	              case 1:
+	              case 'end':
+	                return _context6.stop();
+	            }
+	          }
+	        }, _callee6, this);
+	      }));
+	
+	      function halt() {
+	        return _ref6.apply(this, arguments);
+	      }
+	
+	      return halt;
 	    }()
 	  }, {
 	    key: 'profile',
@@ -8856,27 +8982,27 @@ var ikagakaApplication =
 	  }, {
 	    key: 'installNamed',
 	    value: function () {
-	      var _ref3 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee3(target, from) {
-	        return _regenerator2.default.wrap(function _callee3$(_context3) {
+	      var _ref7 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee7(target, from) {
+	        return _regenerator2.default.wrap(function _callee7$(_context7) {
 	          while (1) {
-	            switch (_context3.prev = _context3.next) {
+	            switch (_context7.prev = _context7.next) {
 	              case 0:
-	                _context3.next = 2;
+	                _context7.next = 2;
 	                return this.installNar(target, from);
 	
 	              case 2:
-	                return _context3.abrupt('return', _context3.sent);
+	                return _context7.abrupt('return', _context7.sent);
 	
 	              case 3:
 	              case 'end':
-	                return _context3.stop();
+	                return _context7.stop();
 	            }
 	          }
-	        }, _callee3, this);
+	        }, _callee7, this);
 	      }));
 	
-	      function installNamed(_x3, _x4) {
-	        return _ref3.apply(this, arguments);
+	      function installNamed(_x9, _x10) {
+	        return _ref7.apply(this, arguments);
 	      }
 	
 	      return installNamed;
@@ -13218,6 +13344,10 @@ var ikagakaApplication =
 	'use strict';
 	
 	__webpack_require__(144);
+	
+	__webpack_require__(145);
+	
+	__webpack_require__(146);
 	//# sourceMappingURL=named-kernel-manager-default-plugins.js.map
 
 
@@ -13231,6 +13361,10 @@ var ikagakaApplication =
 	  value: true
 	});
 	exports.OperationController = exports.OperationRouting = undefined;
+	
+	var _promise = __webpack_require__(8);
+	
+	var _promise2 = _interopRequireDefault(_promise);
 	
 	var _regenerator = __webpack_require__(1);
 	
@@ -13275,9 +13409,12 @@ var ikagakaApplication =
 	      routes.controller('OperationController', function (routes) {
 	        routes.from('NamedKernelManager', function (routes) {
 	          routes.event('start', 'boot_all');
-	          routes.event('boot');
+	          routes.event('boot_named');
+	          routes.event('close_named');
+	          routes.event('change_named');
 	          routes.event('close');
 	          routes.event('halt');
+	          routes.event('kernel_unregistered');
 	        });
 	      });
 	    }
@@ -13293,7 +13430,11 @@ var ikagakaApplication =
 	
 	  function OperationController(manager) {
 	    (0, _classCallCheck3.default)(this, OperationController);
-	    return (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(OperationController).call(this, manager));
+	
+	    var _this = (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(OperationController).call(this, manager));
+	
+	    _this.closeComplete = {};
+	    return _this;
 	  }
 	
 	  (0, _createClass3.default)(OperationController, [{
@@ -13316,9 +13457,7 @@ var ikagakaApplication =
 	                // TODO: 他形式対応
 	
 	                ghosts.map(function (ghostname) {
-	                  return _this2.manager.loadGhost(ghostname).then(function (kernel) {
-	                    return kernel.start();
-	                  });
+	                  return _this2.boot_named(ghostname);
 	                });
 	
 	              case 5:
@@ -13335,6 +13474,146 @@ var ikagakaApplication =
 	
 	      return boot_all;
 	    }()
+	  }, {
+	    key: 'boot_named',
+	    value: function () {
+	      var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2(namedId) {
+	        var kernel;
+	        return _regenerator2.default.wrap(function _callee2$(_context2) {
+	          while (1) {
+	            switch (_context2.prev = _context2.next) {
+	              case 0:
+	                _context2.next = 2;
+	                return this.manager.loadGhost(namedId);
+	
+	              case 2:
+	                kernel = _context2.sent;
+	
+	                kernel.start();
+	
+	              case 4:
+	              case 'end':
+	                return _context2.stop();
+	            }
+	          }
+	        }, _callee2, this);
+	      }));
+	
+	      function boot_named(_x) {
+	        return _ref2.apply(this, arguments);
+	      }
+	
+	      return boot_named;
+	    }()
+	  }, {
+	    key: 'close_named',
+	    value: function close_named(namedId) {
+	      var _this3 = this;
+	
+	      // TODO change
+	      return new _promise2.default(function (resolve) {
+	        var kernel = _this3.manager.kernel(namedId);
+	        _this3.closeComplete[namedId] = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee3() {
+	          return _regenerator2.default.wrap(function _callee3$(_context3) {
+	            while (1) {
+	              switch (_context3.prev = _context3.next) {
+	                case 0:
+	                  delete _this3.closeComplete[namedId];
+	                  resolve();
+	
+	                case 2:
+	                case 'end':
+	                  return _context3.stop();
+	              }
+	            }
+	          }, _callee3, _this3);
+	        }));
+	        kernel.close();
+	      });
+	    }
+	  }, {
+	    key: 'change_named',
+	    value: function () {
+	      var _ref4 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee4(namedId, fromNamedId) {
+	        return _regenerator2.default.wrap(function _callee4$(_context4) {
+	          while (1) {
+	            switch (_context4.prev = _context4.next) {
+	              case 0:
+	                _context4.next = 2;
+	                return this.close_named(fromNamedId);
+	
+	              case 2:
+	                _context4.next = 4;
+	                return this.boot_named(namedId);
+	
+	              case 4:
+	              case 'end':
+	                return _context4.stop();
+	            }
+	          }
+	        }, _callee4, this);
+	      }));
+	
+	      function change_named(_x2, _x3) {
+	        return _ref4.apply(this, arguments);
+	      }
+	
+	      return change_named;
+	    }()
+	  }, {
+	    key: 'close',
+	    value: function () {
+	      var _ref5 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee5() {
+	        var _this4 = this;
+	
+	        var profile;
+	        return _regenerator2.default.wrap(function _callee5$(_context5) {
+	          while (1) {
+	            switch (_context5.prev = _context5.next) {
+	              case 0:
+	                _context5.next = 2;
+	                return this.manager.profile();
+	
+	              case 2:
+	                profile = _context5.sent;
+	
+	                profile.ghosts = this.manager.namedIds();
+	                _context5.next = 6;
+	                return this.manager.profile(profile);
+	
+	              case 6:
+	                _context5.next = 8;
+	                return _promise2.default.all(this.manager.namedIds().map(function (namedId) {
+	                  return _this4.close_named(namedId);
+	                }));
+	
+	              case 8:
+	                this.manager.halt();
+	
+	              case 9:
+	              case 'end':
+	                return _context5.stop();
+	            }
+	          }
+	        }, _callee5, this);
+	      }));
+	
+	      function close() {
+	        return _ref5.apply(this, arguments);
+	      }
+	
+	      return close;
+	    }()
+	  }, {
+	    key: 'halt',
+	    value: function halt() {
+	      // TODO
+	    }
+	  }, {
+	    key: 'kernel_unregistered',
+	    value: function kernel_unregistered(namedId) {
+	      if (this.closeComplete[namedId]) this.closeComplete[namedId]();
+	    }
 	  }]);
 	  return OperationController;
 	}(_namedKernelManager.NamedKernelManagerController);
@@ -13350,24 +13629,420 @@ var ikagakaApplication =
 
 	'use strict';
 	
-	__webpack_require__(146);
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.ConsoleController = exports.ConsoleRouting = undefined;
 	
-	__webpack_require__(147);
+	var _getPrototypeOf = __webpack_require__(83);
 	
-	__webpack_require__(153);
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
 	
-	__webpack_require__(154);
+	var _possibleConstructorReturn2 = __webpack_require__(86);
 	
-	__webpack_require__(155);
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
 	
-	__webpack_require__(158);
+	var _inherits2 = __webpack_require__(106);
 	
-	__webpack_require__(159);
-	//# sourceMappingURL=ghost-kernel-default-plugins.js.map
+	var _inherits3 = _interopRequireDefault(_inherits2);
+	
+	var _classCallCheck2 = __webpack_require__(73);
+	
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+	
+	var _createClass2 = __webpack_require__(74);
+	
+	var _createClass3 = _interopRequireDefault(_createClass2);
+	
+	var _namedKernelManager = __webpack_require__(78);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var ConsoleRouting = exports.ConsoleRouting = function () {
+	  function ConsoleRouting() {
+	    (0, _classCallCheck3.default)(this, ConsoleRouting);
+	  }
+	
+	  (0, _createClass3.default)(ConsoleRouting, [{
+	    key: 'setup',
+	    value: function setup(routes) {
+	      routes.controller('ConsoleController', function (routes) {
+	        routes.from('NamedKernelManager', function (routes) {
+	          routes.event('start');
+	        });
+	      });
+	    }
+	  }]);
+	  return ConsoleRouting;
+	}();
+	
+	var ConsoleController = exports.ConsoleController = function (_NamedKernelManagerCo) {
+	  (0, _inherits3.default)(ConsoleController, _NamedKernelManagerCo);
+	
+	  function ConsoleController(manager) {
+	    (0, _classCallCheck3.default)(this, ConsoleController);
+	
+	    var _this = (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(ConsoleController).call(this, manager));
+	
+	    var namedManager = _this.manager.components.NamedManager;
+	    // shortcuts
+	    _this.manager.log = function (message) {
+	      return namedManager.console.log(message);
+	    };
+	    _this.manager.warn = function (message) {
+	      return namedManager.console.warn(message);
+	    };
+	    _this.manager.error = function (message) {
+	      return namedManager.console.error(message);
+	    };
+	    _this.manager.info = function (message) {
+	      return namedManager.console.info(message);
+	    };
+	    return _this;
+	  }
+	
+	  (0, _createClass3.default)(ConsoleController, [{
+	    key: 'start',
+	    value: function start() {}
+	  }]);
+	  return ConsoleController;
+	}(_namedKernelManager.NamedKernelManagerController);
+	
+	_namedKernelManager.NamedKernelManagerControllers.ConsoleController = ConsoleController;
+	_namedKernelManager.NamedKernelManagerRoutings.push(ConsoleRouting);
+	//# sourceMappingURL=console.js.map
 
 
 /***/ },
 /* 146 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.ElementListController = exports.ElementListRouting = exports.ShellList = exports.BalloonList = exports.GhostList = exports.ElementList = undefined;
+	
+	var _regenerator = __webpack_require__(1);
+	
+	var _regenerator2 = _interopRequireDefault(_regenerator);
+	
+	var _promise = __webpack_require__(8);
+	
+	var _promise2 = _interopRequireDefault(_promise);
+	
+	var _asyncToGenerator2 = __webpack_require__(7);
+	
+	var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+	
+	var _getPrototypeOf = __webpack_require__(83);
+	
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+	
+	var _createClass2 = __webpack_require__(74);
+	
+	var _createClass3 = _interopRequireDefault(_createClass2);
+	
+	var _possibleConstructorReturn2 = __webpack_require__(86);
+	
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+	
+	var _inherits2 = __webpack_require__(106);
+	
+	var _inherits3 = _interopRequireDefault(_inherits2);
+	
+	var _classCallCheck2 = __webpack_require__(73);
+	
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+	
+	var _namedKernelManager = __webpack_require__(78);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var ElementList = exports.ElementList = function ElementList(manager) {
+	  var interval = arguments.length <= 1 || arguments[1] === undefined ? 1000 : arguments[1];
+	  (0, _classCallCheck3.default)(this, ElementList);
+	
+	  this.manager = manager;
+	  this.getList();
+	  this.timer = setInterval(this.getList.bind(this), interval);
+	  this.list = [];
+	};
+	
+	var GhostList = exports.GhostList = function (_ElementList) {
+	  (0, _inherits3.default)(GhostList, _ElementList);
+	
+	  function GhostList() {
+	    (0, _classCallCheck3.default)(this, GhostList);
+	    return (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(GhostList).apply(this, arguments));
+	  }
+	
+	  (0, _createClass3.default)(GhostList, [{
+	    key: 'getList',
+	    value: function () {
+	      var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
+	        var nanikaStorage, ghosts;
+	        return _regenerator2.default.wrap(function _callee$(_context) {
+	          while (1) {
+	            switch (_context.prev = _context.next) {
+	              case 0:
+	                nanikaStorage = this.manager.components.NanikaStorage;
+	                _context.next = 3;
+	                return nanikaStorage.ghosts();
+	
+	              case 3:
+	                ghosts = _context.sent;
+	                _context.next = 6;
+	                return _promise2.default.all(ghosts.map(function (dirpath) {
+	                  return nanikaStorage.ghost_name(dirpath).then(function (name) {
+	                    return [name, dirpath];
+	                  });
+	                }));
+	
+	              case 6:
+	                this.list = _context.sent;
+	
+	              case 7:
+	              case 'end':
+	                return _context.stop();
+	            }
+	          }
+	        }, _callee, this);
+	      }));
+	
+	      function getList() {
+	        return _ref.apply(this, arguments);
+	      }
+	
+	      return getList;
+	    }()
+	  }]);
+	  return GhostList;
+	}(ElementList);
+	
+	var BalloonList = exports.BalloonList = function (_ElementList2) {
+	  (0, _inherits3.default)(BalloonList, _ElementList2);
+	
+	  function BalloonList() {
+	    (0, _classCallCheck3.default)(this, BalloonList);
+	    return (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(BalloonList).apply(this, arguments));
+	  }
+	
+	  (0, _createClass3.default)(BalloonList, [{
+	    key: 'getList',
+	    value: function () {
+	      var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2() {
+	        var nanikaStorage, balloons;
+	        return _regenerator2.default.wrap(function _callee2$(_context2) {
+	          while (1) {
+	            switch (_context2.prev = _context2.next) {
+	              case 0:
+	                nanikaStorage = this.manager.components.NanikaStorage;
+	                _context2.next = 3;
+	                return nanikaStorage.balloons();
+	
+	              case 3:
+	                balloons = _context2.sent;
+	                _context2.next = 6;
+	                return _promise2.default.all(balloons.map(function (dirpath) {
+	                  return nanikaStorage.balloon_name(dirpath).then(function (name) {
+	                    return [name, dirpath];
+	                  });
+	                }));
+	
+	              case 6:
+	                this.list = _context2.sent;
+	
+	              case 7:
+	              case 'end':
+	                return _context2.stop();
+	            }
+	          }
+	        }, _callee2, this);
+	      }));
+	
+	      function getList() {
+	        return _ref2.apply(this, arguments);
+	      }
+	
+	      return getList;
+	    }()
+	  }]);
+	  return BalloonList;
+	}(ElementList);
+	
+	var ShellList = exports.ShellList = function (_ElementList3) {
+	  (0, _inherits3.default)(ShellList, _ElementList3);
+	
+	  function ShellList(manager) {
+	    (0, _classCallCheck3.default)(this, ShellList);
+	
+	    var _this3 = (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(ShellList).call(this, manager));
+	
+	    _this3.list = {};
+	    return _this3;
+	  }
+	
+	  (0, _createClass3.default)(ShellList, [{
+	    key: 'getList',
+	    value: function () {
+	      var _ref3 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee3() {
+	        var _this4 = this;
+	
+	        var nanikaStorage, ghosts, shells, list;
+	        return _regenerator2.default.wrap(function _callee3$(_context3) {
+	          while (1) {
+	            switch (_context3.prev = _context3.next) {
+	              case 0:
+	                nanikaStorage = this.manager.components.NanikaStorage;
+	                _context3.next = 3;
+	                return nanikaStorage.ghosts();
+	
+	              case 3:
+	                ghosts = _context3.sent;
+	                _context3.next = 6;
+	                return _promise2.default.all(ghosts.map(function (dirpath) {
+	                  return _this4.getShellList(dirpath);
+	                }));
+	
+	              case 6:
+	                shells = _context3.sent;
+	                list = {};
+	
+	                ghosts.forEach(function (_, index) {
+	                  list[ghosts[index]] = shells[index];
+	                });
+	                this.list = list;
+	
+	              case 10:
+	              case 'end':
+	                return _context3.stop();
+	            }
+	          }
+	        }, _callee3, this);
+	      }));
+	
+	      function getList() {
+	        return _ref3.apply(this, arguments);
+	      }
+	
+	      return getList;
+	    }()
+	  }, {
+	    key: 'getShellList',
+	    value: function () {
+	      var _ref4 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee4(ghostpath) {
+	        var nanikaStorage, shells;
+	        return _regenerator2.default.wrap(function _callee4$(_context4) {
+	          while (1) {
+	            switch (_context4.prev = _context4.next) {
+	              case 0:
+	                nanikaStorage = this.manager.components.NanikaStorage;
+	                _context4.next = 3;
+	                return nanikaStorage.shells(ghostpath);
+	
+	              case 3:
+	                shells = _context4.sent;
+	                _context4.next = 6;
+	                return _promise2.default.all(shells.map(function (dirpath) {
+	                  return nanikaStorage.shell_name(ghostpath, dirpath).then(function (name) {
+	                    return [name, dirpath];
+	                  });
+	                }));
+	
+	              case 6:
+	                return _context4.abrupt('return', _context4.sent);
+	
+	              case 7:
+	              case 'end':
+	                return _context4.stop();
+	            }
+	          }
+	        }, _callee4, this);
+	      }));
+	
+	      function getShellList(_x2) {
+	        return _ref4.apply(this, arguments);
+	      }
+	
+	      return getShellList;
+	    }()
+	  }]);
+	  return ShellList;
+	}(ElementList);
+	
+	var ElementListRouting = exports.ElementListRouting = function () {
+	  function ElementListRouting() {
+	    (0, _classCallCheck3.default)(this, ElementListRouting);
+	  }
+	
+	  (0, _createClass3.default)(ElementListRouting, [{
+	    key: 'setup',
+	    value: function setup(routes) {
+	      routes.controller('ElementListController', function (routes) {
+	        routes.from('NamedKernelManager', function (routes) {
+	          routes.event('start');
+	        });
+	      });
+	    }
+	  }]);
+	  return ElementListRouting;
+	}();
+	
+	// ゴースト等のリストをメニューから同期的に参照できるように
+	
+	
+	var ElementListController = exports.ElementListController = function (_NamedKernelManagerCo) {
+	  (0, _inherits3.default)(ElementListController, _NamedKernelManagerCo);
+	
+	  function ElementListController(manager) {
+	    (0, _classCallCheck3.default)(this, ElementListController);
+	    return (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(ElementListController).call(this, manager));
+	  }
+	
+	  (0, _createClass3.default)(ElementListController, [{
+	    key: 'start',
+	    value: function start() {
+	      this.manager.registerComponent('GhostList', new GhostList(this.manager));
+	      this.manager.registerComponent('BalloonList', new BalloonList(this.manager));
+	      this.manager.registerComponent('ShellList', new ShellList(this.manager));
+	    }
+	  }]);
+	  return ElementListController;
+	}(_namedKernelManager.NamedKernelManagerController);
+	
+	_namedKernelManager.NamedKernelManagerControllers.ElementListController = ElementListController;
+	_namedKernelManager.NamedKernelManagerRoutings.push(ElementListRouting);
+	//# sourceMappingURL=element_list.js.map
+
+
+/***/ },
+/* 147 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	__webpack_require__(148);
+	
+	__webpack_require__(149);
+	
+	__webpack_require__(155);
+	
+	__webpack_require__(156);
+	
+	__webpack_require__(157);
+	
+	__webpack_require__(160);
+	
+	__webpack_require__(161);
+	
+	__webpack_require__(162);
+	//# sourceMappingURL=ghost-kernel-default-plugins.js.map
+
+
+/***/ },
+/* 148 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13415,6 +14090,7 @@ var ikagakaApplication =
 	    value: function setup(routes) {
 	      routes.controller('VersionController', function (routes) {
 	        routes.event('GhostKernel', 'start');
+	        routes.event('GhostKernel', 'halt');
 	      });
 	    }
 	  }]);
@@ -13545,6 +14221,11 @@ var ikagakaApplication =
 	        }
 	      });
 	    }
+	  }, {
+	    key: 'halt',
+	    value: function halt() {
+	      this.kernel.unregisterComponent('Version');
+	    }
 	  }]);
 	  return VersionController;
 	}(_ghostKernel.GhostKernelController);
@@ -13555,7 +14236,7 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 147 */
+/* 149 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13565,7 +14246,7 @@ var ikagakaApplication =
 	});
 	exports.SiteMenu = exports.Information = exports.InformationController = exports.InformationRouting = undefined;
 	
-	var _toConsumableArray2 = __webpack_require__(148);
+	var _toConsumableArray2 = __webpack_require__(150);
 	
 	var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 	
@@ -13607,6 +14288,7 @@ var ikagakaApplication =
 	    value: function setup(routes) {
 	      routes.controller('InformationController', function (routes) {
 	        routes.event('GhostKernel', 'notify_informations_done', 'initialize_informations');
+	        routes.event('GhostKernel', 'halt');
 	      });
 	    }
 	  }]);
@@ -13646,6 +14328,11 @@ var ikagakaApplication =
 	      }))).then(function () {
 	        return kernel.emit('initialize_informations_done');
 	      });
+	    }
+	  }, {
+	    key: 'halt',
+	    value: function halt() {
+	      this.kernel.unregisterComponent('Information');
 	    }
 	  }]);
 	  return InformationController;
@@ -13787,14 +14474,14 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 148 */
+/* 150 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
 	exports.__esModule = true;
 	
-	var _from = __webpack_require__(149);
+	var _from = __webpack_require__(151);
 	
 	var _from2 = _interopRequireDefault(_from);
 	
@@ -13813,21 +14500,21 @@ var ikagakaApplication =
 	};
 
 /***/ },
-/* 149 */
+/* 151 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(150), __esModule: true };
+	module.exports = { "default": __webpack_require__(152), __esModule: true };
 
 /***/ },
-/* 150 */
+/* 152 */
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(11);
-	__webpack_require__(151);
+	__webpack_require__(153);
 	module.exports = __webpack_require__(19).Array.from;
 
 /***/ },
-/* 151 */
+/* 153 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13837,7 +14524,7 @@ var ikagakaApplication =
 	  , call           = __webpack_require__(63)
 	  , isArrayIter    = __webpack_require__(64)
 	  , toLength       = __webpack_require__(44)
-	  , createProperty = __webpack_require__(152)
+	  , createProperty = __webpack_require__(154)
 	  , getIterFn      = __webpack_require__(65);
 	
 	$export($export.S + $export.F * !__webpack_require__(72)(function(iter){ Array.from(iter); }), 'Array', {
@@ -13870,7 +14557,7 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 152 */
+/* 154 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13883,7 +14570,7 @@ var ikagakaApplication =
 	};
 
 /***/ },
-/* 153 */
+/* 155 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13927,6 +14614,7 @@ var ikagakaApplication =
 	    value: function setup(routes) {
 	      routes.controller('TimeEventController', function (routes) {
 	        routes.event('GhostKernel', 'boot_done', 'enable_time_events'); // TODO いつが最初なのが正しい?
+	        routes.event('GhostKernel', 'halt');
 	        routes.from('TimerEventSource', function (routes) {
 	          routes.event('second_change');
 	          routes.event('minute_change');
@@ -13963,6 +14651,17 @@ var ikagakaApplication =
 	    key: 'enable_time_events',
 	    value: function enable_time_events() {
 	      this.kernel.components.TimerEventState.enabled = true;
+	    }
+	  }, {
+	    key: 'disable_time_events',
+	    value: function disable_time_events() {
+	      this.kernel.components.TimerEventState.enabled = false;
+	    }
+	  }, {
+	    key: 'halt',
+	    value: function halt() {
+	      this.disable_time_events();
+	      this.kernel.unregisterComponent('TimerEventState');
 	    }
 	  }, {
 	    key: 'second_change',
@@ -14022,7 +14721,7 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 154 */
+/* 156 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14032,7 +14731,7 @@ var ikagakaApplication =
 	});
 	exports.ShellController = exports.ShellRouting = exports.ShellState = undefined;
 	
-	var _toConsumableArray2 = __webpack_require__(148);
+	var _toConsumableArray2 = __webpack_require__(150);
 	
 	var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 	
@@ -14110,6 +14809,7 @@ var ikagakaApplication =
 	    value: function setup(routes) {
 	      routes.controller('ShellController', function (routes) {
 	        routes.event('GhostKernel', 'start');
+	        routes.event('GhostKernel', 'halt');
 	        routes.from('Named', function (routes) {
 	          routes.event('choiceselect');
 	          routes.event('anchorselect');
@@ -14143,6 +14843,12 @@ var ikagakaApplication =
 	    value: function start() {
 	      var shellState = new ShellState(this.kernel.components.Named);
 	      this.kernel.registerComponent('ShellState', shellState);
+	    }
+	  }, {
+	    key: 'halt',
+	    value: function halt() {
+	      this.kernel.components.ShellState.clearBalloonTimeout();
+	      this.kernel.unregisterComponent('ShellState');
 	    }
 	  }, {
 	    key: 'choiceselect',
@@ -14318,7 +15024,7 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 155 */
+/* 157 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14328,9 +15034,17 @@ var ikagakaApplication =
 	});
 	exports.SakuraScriptController = exports.SakuraScriptRouting = exports.SakuraScriptState = undefined;
 	
-	var _toConsumableArray2 = __webpack_require__(148);
+	var _toConsumableArray2 = __webpack_require__(150);
 	
 	var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+	
+	var _regenerator = __webpack_require__(1);
+	
+	var _regenerator2 = _interopRequireDefault(_regenerator);
+	
+	var _asyncToGenerator2 = __webpack_require__(7);
+	
+	var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 	
 	var _getPrototypeOf = __webpack_require__(83);
 	
@@ -14344,27 +15058,52 @@ var ikagakaApplication =
 	
 	var _inherits3 = _interopRequireDefault(_inherits2);
 	
-	var _createClass2 = __webpack_require__(74);
+	var _keys = __webpack_require__(79);
 	
-	var _createClass3 = _interopRequireDefault(_createClass2);
+	var _keys2 = _interopRequireDefault(_keys);
 	
 	var _classCallCheck2 = __webpack_require__(73);
 	
 	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 	
+	var _createClass2 = __webpack_require__(74);
+	
+	var _createClass3 = _interopRequireDefault(_createClass2);
+	
 	var _ghostKernel = __webpack_require__(142);
 	
-	var _sakurascriptExecuter = __webpack_require__(156);
+	var _sakurascriptExecuter = __webpack_require__(158);
 	
-	var _sakurascript = __webpack_require__(157);
+	var _sakurascript = __webpack_require__(159);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var SakuraScriptState = exports.SakuraScriptState = function SakuraScriptState() {
-	  (0, _classCallCheck3.default)(this, SakuraScriptState);
+	var SakuraScriptState = exports.SakuraScriptState = function () {
+	  function SakuraScriptState() {
+	    (0, _classCallCheck3.default)(this, SakuraScriptState);
 	
-	  this.timerRaiseTimerId = {};
-	};
+	    this.timerRaiseTimerId = {};
+	  }
+	
+	  (0, _createClass3.default)(SakuraScriptState, [{
+	    key: 'clearTimerRaise',
+	    value: function clearTimerRaise(event) {
+	      var id = this.timerRaiseTimerId[event];
+	      if (id) clearInterval(id);
+	      delete this.timerRaiseTimerId[event];
+	    }
+	  }, {
+	    key: 'clearAllTimerRaise',
+	    value: function clearAllTimerRaise() {
+	      var _this = this;
+	
+	      (0, _keys2.default)(this.timerRaiseTimerId).forEach(function (event) {
+	        return _this.clearTimerRaise(event);
+	      });
+	    }
+	  }]);
+	  return SakuraScriptState;
+	}();
 	
 	var SakuraScriptRouting = exports.SakuraScriptRouting = function () {
 	  function SakuraScriptRouting() {
@@ -14376,6 +15115,7 @@ var ikagakaApplication =
 	    value: function setup(routes) {
 	      routes.controller('SakuraScriptController', function (routes) {
 	        routes.event('GhostKernel', 'start');
+	        routes.event('GhostKernel', 'halt');
 	        routes.from('SakuraScriptExecuter', function (routes) {
 	          routes.event('begin_execute');
 	          routes.event('execute');
@@ -14398,16 +15138,49 @@ var ikagakaApplication =
 	  (0, _createClass3.default)(SakuraScriptController, [{
 	    key: 'start',
 	    value: function start() {
-	      var _this2 = this;
+	      var _this3 = this;
 	
 	      var sakurascript_executer = new _sakurascriptExecuter.SakuraScriptExecuter({ talk_wait: 50 }); // TODO 設定を読む
 	      this.kernel.registerComponent('SakuraScriptExecuter', sakurascript_executer);
 	      this.kernel.registerComponent('SakuraScriptState', new SakuraScriptState());
 	      // make shortcut
-	      this.kernel.executeSakuraScript = function (transaction) {
-	        var value = transaction.response.to('3.0').headers.header.Value;
-	        if (value != null) _this2.kernel.components.SakuraScriptExecuter.execute(value.toString());
-	      };
+	      this.kernel.executeSakuraScript = function () {
+	        var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(transaction) {
+	          var value;
+	          return _regenerator2.default.wrap(function _callee$(_context) {
+	            while (1) {
+	              switch (_context.prev = _context.next) {
+	                case 0:
+	                  value = transaction.response.to('3.0').headers.header.Value;
+	
+	                  if (!(value != null)) {
+	                    _context.next = 4;
+	                    break;
+	                  }
+	
+	                  _context.next = 4;
+	                  return _this3.kernel.components.SakuraScriptExecuter.execute(value.toString());
+	
+	                case 4:
+	                case 'end':
+	                  return _context.stop();
+	              }
+	            }
+	          }, _callee, _this3);
+	        }));
+	
+	        return function (_x) {
+	          return _ref.apply(this, arguments);
+	        };
+	      }();
+	    }
+	  }, {
+	    key: 'halt',
+	    value: function halt() {
+	      this.kernel.components.SakuraScriptExecuter.abort_execute();
+	      this.kernel.components.SakuraScriptState.clearAllTimerRaise();
+	      this.kernel.unregisterComponent('SakuraScriptExecuter');
+	      this.kernel.unregisterComponent('SakuraScriptState');
 	    }
 	  }, {
 	    key: 'begin_execute',
@@ -14618,7 +15391,7 @@ var ikagakaApplication =
 	  }, {
 	    key: '_handle_other',
 	    value: function _handle_other(token) {
-	      var _this3 = this;
+	      var _this4 = this;
 	
 	      var named = this.kernel.components.Named;
 	      var scope = named.scope();
@@ -14662,20 +15435,13 @@ var ikagakaApplication =
 	          (function () {
 	            var repeat_count = token.repeat_count || 0;
 	            sakuraScriptState.timerRaiseTimerId[token.event] = setInterval(function () {
-	              shiorif.get3(token.event, token.references).then(_this3.kernel.executeSakuraScript);
+	              shiorif.get3(token.event, token.references).then(_this4.kernel.executeSakuraScript);
 	              if (repeat_count > 0) repeat_count--;
-	              if (!repeat_count) {
-	                clearInterval(sakuraScriptState.timerRaiseTimerId[token.event]);
-	                delete sakuraScriptState.timerRaiseTimerId[token.event];
-	              }
+	              if (!repeat_count) sakuraScriptState.clearTimerRaise(token.event);
 	            }, token.period);
 	          })();
 	        } else {
-	          var id = sakuraScriptState.timerRaiseTimerId[token.event];
-	          if (id) {
-	            clearInterval(id);
-	            delete sakuraScriptState.timerRaiseTimerId[token.event];
-	          }
+	          sakuraScriptState.clearTimerRaise(token.event);
 	        }
 	      } else if (token instanceof _sakurascript.SakuraScriptToken.Notify) {
 	        shiorif.notify3(token.event, token.references); // TODO: catch error
@@ -14726,7 +15492,7 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 156 */
+/* 158 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14774,7 +15540,7 @@ var ikagakaApplication =
 	
 	var _events = __webpack_require__(126);
 	
-	var _sakurascript = __webpack_require__(157);
+	var _sakurascript = __webpack_require__(159);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -15147,7 +15913,7 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 157 */
+/* 159 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {(function() {
@@ -16627,7 +17393,7 @@ var ikagakaApplication =
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(139)(module)))
 
 /***/ },
-/* 158 */
+/* 160 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17114,7 +17880,7 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 159 */
+/* 161 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17207,56 +17973,62 @@ var ikagakaApplication =
 	                profile = _context.sent;
 	                boot_count = profile.boot_count || 0;
 	
-	                if (!(boot_count === 0)) {
-	                  _context.next = 21;
+	                profile.boot_count++;
+	
+	                if (!(boot_count === 1)) {
+	                  _context.next = 22;
 	                  break;
 	                }
 	
 	                vanish_count = profile.vanish_count || 0;
-	                _context.next = 9;
+	                _context.next = 10;
 	                return shiorif.get3('OnFirstBoot', [vanish_count]);
 	
-	              case 9:
+	              case 10:
 	                transaction = _context.sent;
 	
 	                this.kernel.emit('boot_done');
 	
 	                if (!(transaction.response.to('3.0').status_line.code === 200)) {
-	                  _context.next = 16;
+	                  _context.next = 17;
 	                  break;
 	                }
 	
-	                _context.next = 14;
+	                _context.next = 15;
 	                return this.kernel.executeSakuraScript(transaction);
 	
-	              case 14:
-	                _context.next = 18;
+	              case 15:
+	                _context.next = 19;
 	                break;
 	
-	              case 16:
-	                _context.next = 18;
+	              case 17:
+	                _context.next = 19;
 	                return shiorif.get3('OnBoot', this._bootHeaders(profile.shellname)).then(this.kernel.executeSakuraScript);
 	
-	              case 18:
+	              case 19:
 	                this.kernel.emit('boot_complete');
-	                _context.next = 28;
+	                _context.next = 29;
 	                break;
 	
-	              case 21:
-	                _context.next = 23;
+	              case 22:
+	                _context.next = 24;
 	                return shiorif.get3('OnBoot', this._bootHeaders(profile.shellname));
 	
-	              case 23:
+	              case 24:
 	                _transaction = _context.sent;
 	
 	                this.kernel.emit('boot_done');
-	                _context.next = 27;
+	                _context.next = 28;
 	                return this.kernel.executeSakuraScript(_transaction);
 	
-	              case 27:
+	              case 28:
 	                this.kernel.emit('boot_complete');
 	
-	              case 28:
+	              case 29:
+	                _context.next = 31;
+	                return this.kernel.profile(profile);
+	
+	              case 31:
 	              case 'end':
 	                return _context.stop();
 	            }
@@ -17281,11 +18053,61 @@ var ikagakaApplication =
 	  }, {
 	    key: 'close',
 	    value: function () {
-	      var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2() {
+	      var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2(reason, all) {
+	        var shiorif, transaction;
 	        return _regenerator2.default.wrap(function _callee2$(_context2) {
 	          while (1) {
 	            switch (_context2.prev = _context2.next) {
 	              case 0:
+	                shiorif = this.kernel.components.Shiorif;
+	
+	                if (!all) {
+	                  _context2.next = 14;
+	                  break;
+	                }
+	
+	                _context2.next = 4;
+	                return shiorif.get3('OnCloseAll', [reason]);
+	
+	              case 4:
+	                transaction = _context2.sent;
+	
+	                if (!(transaction.response.to('3.0').status_line.code === 200)) {
+	                  _context2.next = 10;
+	                  break;
+	                }
+	
+	                _context2.next = 8;
+	                return this.kernel.executeSakuraScript(transaction);
+	
+	              case 8:
+	                _context2.next = 12;
+	                break;
+	
+	              case 10:
+	                _context2.next = 12;
+	                return shiorif.get3('OnClose', [reason]).then(this.kernel.executeSakuraScript);
+	
+	              case 12:
+	                _context2.next = 16;
+	                break;
+	
+	              case 14:
+	                _context2.next = 16;
+	                return shiorif.get3('OnClose', [reason]).then(this.kernel.executeSakuraScript);
+	
+	              case 16:
+	                if (!this.halting) {
+	                  _context2.next = 18;
+	                  break;
+	                }
+	
+	                return _context2.abrupt('return');
+	
+	              case 18:
+	                this.kernel.halt(reason); // スクリプトが\-を返さなかったとき対策
+	
+	              case 19:
 	              case 'end':
 	                return _context2.stop();
 	            }
@@ -17293,7 +18115,7 @@ var ikagakaApplication =
 	        }, _callee2, this);
 	      }));
 	
-	      function close() {
+	      function close(_x, _x2) {
 	        return _ref2.apply(this, arguments);
 	      }
 	
@@ -17301,13 +18123,154 @@ var ikagakaApplication =
 	    }()
 	  }, {
 	    key: 'halt',
-	    value: function halt() {}
+	    value: function () {
+	      var _ref3 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee3(reason) {
+	        return _regenerator2.default.wrap(function _callee3$(_context3) {
+	          while (1) {
+	            switch (_context3.prev = _context3.next) {
+	              case 0:
+	                this.halting = true; // TODO
+	
+	                this.kernel.unregisterComponent('TimerEventSource');
+	                this.kernel.components.NamedKernelManager.components.NamedManager.vanish(this.kernel.components.Named.namedId);
+	                this.kernel.unregisterComponent('Named');
+	                _context3.next = 6;
+	                return this.kernel.components.Shiorif.unload();
+	
+	              case 6:
+	                this.kernel.unregisterComponent('Shiorif');
+	                this.kernel.components.NamedKernelManager.unregisterKernel(this.kernel.namedId);
+	                this.kernel.unregisterComponent('NamedKernelManager');
+	                this.kernel.unregisterComponent('GhostKernel');
+	
+	              case 10:
+	              case 'end':
+	                return _context3.stop();
+	            }
+	          }
+	        }, _callee3, this);
+	      }));
+	
+	      function halt(_x3) {
+	        return _ref3.apply(this, arguments);
+	      }
+	
+	      return halt;
+	    }()
 	  }, {
 	    key: 'change_shell',
-	    value: function change_shell(shellname) {}
+	    value: function () {
+	      var _ref4 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee4(shellname) {
+	        var shiorif, shellViewName, shell, profile;
+	        return _regenerator2.default.wrap(function _callee4$(_context4) {
+	          while (1) {
+	            switch (_context4.prev = _context4.next) {
+	              case 0:
+	                shiorif = this.kernel.components.Shiorif;
+	                _context4.next = 3;
+	                return this.kernel.components.NanikaStorage.shell_name(this.kernel.namedId, shellname);
+	
+	              case 3:
+	                shellViewName = _context4.sent;
+	                _context4.next = 6;
+	                return shiorif.get3('OnShellChanging', [shellViewName, this.kernel.components.Named.shell.descript.name, '']).then(this.kernel.executeSakuraScript);
+	
+	              case 6:
+	                ; // TODO: path
+	
+	                _context4.next = 9;
+	                return this.kernel.components.NamedKernelManager._get_shell(this.kernel.namedId, shellname);
+	
+	              case 9:
+	                shell = _context4.sent;
+	
+	                this.kernel.components.Named.changeShell(shell);
+	
+	                _context4.next = 13;
+	                return this.kernel.profile();
+	
+	              case 13:
+	                profile = _context4.sent;
+	
+	                profile.shellname = shellname;
+	                _context4.next = 17;
+	                return this.kernel.profile(profile);
+	
+	              case 17:
+	                _context4.next = 19;
+	                return shiorif.get3('OnShellChanged', [shellViewName, this.kernel.ghostDescript.name, '']).then(this.kernel.executeSakuraScript);
+	
+	              case 19:
+	                ; // TODO: path
+	
+	              case 20:
+	              case 'end':
+	                return _context4.stop();
+	            }
+	          }
+	        }, _callee4, this);
+	      }));
+	
+	      function change_shell(_x4) {
+	        return _ref4.apply(this, arguments);
+	      }
+	
+	      return change_shell;
+	    }()
 	  }, {
 	    key: 'change_balloon',
-	    value: function change_balloon(balloonname) {}
+	    value: function () {
+	      var _ref5 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee5(balloonname) {
+	        var balloon, profile, shiorif, balloonViewName;
+	        return _regenerator2.default.wrap(function _callee5$(_context5) {
+	          while (1) {
+	            switch (_context5.prev = _context5.next) {
+	              case 0:
+	                _context5.next = 2;
+	                return this.kernel.components.NamedKernelManager._get_balloon(balloonname);
+	
+	              case 2:
+	                balloon = _context5.sent;
+	
+	                this.kernel.components.Named.changeBalloon(balloon);
+	
+	                _context5.next = 6;
+	                return this.kernel.profile();
+	
+	              case 6:
+	                profile = _context5.sent;
+	
+	                profile.balloonname = balloonname;
+	                _context5.next = 10;
+	                return this.kernel.profile(profile);
+	
+	              case 10:
+	                shiorif = this.kernel.components.Shiorif;
+	                _context5.next = 13;
+	                return this.kernel.components.NanikaStorage.balloon_name(balloonname);
+	
+	              case 13:
+	                balloonViewName = _context5.sent;
+	                _context5.next = 16;
+	                return shiorif.get3('OnBalloonChange', [balloonViewName, '']).then(this.kernel.executeSakuraScript);
+	
+	              case 16:
+	                ; // TODO: path
+	
+	              case 17:
+	              case 'end':
+	                return _context5.stop();
+	            }
+	          }
+	        }, _callee5, this);
+	      }));
+	
+	      function change_balloon(_x5) {
+	        return _ref5.apply(this, arguments);
+	      }
+	
+	      return change_balloon;
+	    }()
 	  }]);
 	  return OperationController;
 	}(_ghostKernel.GhostKernelController);
@@ -17318,18 +18281,233 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 160 */
+/* 162 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.MenuController = exports.MenuRouting = exports.Menu = undefined;
+	
+	var _getPrototypeOf = __webpack_require__(83);
+	
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+	
+	var _possibleConstructorReturn2 = __webpack_require__(86);
+	
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+	
+	var _inherits2 = __webpack_require__(106);
+	
+	var _inherits3 = _interopRequireDefault(_inherits2);
+	
+	var _slicedToArray2 = __webpack_require__(128);
+	
+	var _slicedToArray3 = _interopRequireDefault(_slicedToArray2);
+	
+	var _classCallCheck2 = __webpack_require__(73);
+	
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+	
+	var _createClass2 = __webpack_require__(74);
+	
+	var _createClass3 = _interopRequireDefault(_createClass2);
+	
+	var _ghostKernel = __webpack_require__(142);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Menu = exports.Menu = function () {
+	  function Menu(kernel) {
+	    (0, _classCallCheck3.default)(this, Menu);
+	
+	    this.kernel = kernel;
+	  }
+	
+	  (0, _createClass3.default)(Menu, [{
+	    key: 'contextmenu',
+	    value: function contextmenu(event) {
+	      var _this = this;
+	
+	      var scopeId = event.scopeId;
+	      return {
+	        items: {
+	          changeGhost: { name: 'ゴースト切り替え', items: this.changeGhost() },
+	          callGhost: { name: '他のゴーストを呼ぶ', items: this.callGhost() },
+	          changeShell: { name: 'シェル', items: this.changeShell() },
+	          changeBalloon: { name: 'バルーン', items: this.changeBalloon() },
+	          inputScript: { name: '開発用 スクリプト入力', callback: function callback() {
+	              return _this.kernel.components.SakuraScriptExecuter.execute(window.prompt('send'));
+	            } },
+	          quit: { name: '終了', callback: function callback() {
+	              return _this.kernel.close('user');
+	            } },
+	          quitAll: { name: '全て終了', callback: function callback() {
+	              return _this.kernel.components.NamedKernelManager.close('user');
+	            } }
+	        }
+	      };
+	    }
+	  }, {
+	    key: 'changeGhost',
+	    value: function changeGhost() {
+	      var _this2 = this;
+	
+	      var namedKernelManager = this.kernel.components.NamedKernelManager;
+	      var ghosts = namedKernelManager.components.GhostList.list;
+	      var menu = {};
+	      ghosts.forEach(function (_ref) {
+	        var _ref2 = (0, _slicedToArray3.default)(_ref, 2);
+	
+	        var name = _ref2[0];
+	        var dirpath = _ref2[1];
+	
+	        var disabled = namedKernelManager.isKernelExists(dirpath) && !_this2.kernel.namedId === dirpath;
+	        menu['changeGhost-' + dirpath] = {
+	          name: name,
+	          disabled: disabled,
+	          callback: function callback() {
+	            return namedKernelManager.changeNamed(dirpath, _this2.kernel.namedId);
+	          }
+	        };
+	      });
+	      return menu;
+	    }
+	  }, {
+	    key: 'callGhost',
+	    value: function callGhost() {
+	      var namedKernelManager = this.kernel.components.NamedKernelManager;
+	      var ghosts = namedKernelManager.components.GhostList.list;
+	      var menu = {};
+	      ghosts.forEach(function (_ref3) {
+	        var _ref4 = (0, _slicedToArray3.default)(_ref3, 2);
+	
+	        var name = _ref4[0];
+	        var dirpath = _ref4[1];
+	
+	        var disabled = namedKernelManager.isKernelExists(dirpath);
+	        menu['callGhost-' + dirpath] = {
+	          name: name,
+	          disabled: disabled,
+	          callback: function callback() {
+	            return namedKernelManager.bootNamed(dirpath);
+	          }
+	        };
+	      });
+	      return menu;
+	    }
+	  }, {
+	    key: 'changeShell',
+	    value: function changeShell() {
+	      var _this3 = this;
+	
+	      var namedKernelManager = this.kernel.components.NamedKernelManager;
+	      var shells = namedKernelManager.components.ShellList.list[this.kernel.namedId];
+	      var menu = {};
+	      if (!shells) return menu;
+	      var currentShellName = this.kernel.components.Named.shell.descript.name;
+	      shells.forEach(function (_ref5) {
+	        var _ref6 = (0, _slicedToArray3.default)(_ref5, 2);
+	
+	        var name = _ref6[0];
+	        var dirpath = _ref6[1];
+	
+	        var disabled = currentShellName === name;
+	        menu['callShell-' + dirpath] = {
+	          name: name,
+	          disabled: disabled,
+	          callback: function callback() {
+	            return _this3.kernel.changeShell(dirpath);
+	          }
+	        };
+	      });
+	      return menu;
+	    }
+	  }, {
+	    key: 'changeBalloon',
+	    value: function changeBalloon() {
+	      var _this4 = this;
+	
+	      var namedKernelManager = this.kernel.components.NamedKernelManager;
+	      var balloons = namedKernelManager.components.BalloonList.list;
+	      var menu = {};
+	      var currentBalloonName = this.kernel.components.Named.balloon.descript.name;
+	      balloons.forEach(function (_ref7) {
+	        var _ref8 = (0, _slicedToArray3.default)(_ref7, 2);
+	
+	        var name = _ref8[0];
+	        var dirpath = _ref8[1];
+	
+	        var disabled = currentBalloonName === name;
+	        menu['changeBalloon-' + dirpath] = {
+	          name: name,
+	          disabled: disabled,
+	          callback: function callback() {
+	            return _this4.kernel.changeBalloon(dirpath);
+	          }
+	        };
+	      });
+	      return menu;
+	    }
+	  }]);
+	  return Menu;
+	}();
+	
+	var MenuRouting = exports.MenuRouting = function () {
+	  function MenuRouting() {
+	    (0, _classCallCheck3.default)(this, MenuRouting);
+	  }
+	
+	  (0, _createClass3.default)(MenuRouting, [{
+	    key: 'setup',
+	    value: function setup(routes) {
+	      routes.controller('MenuController', function (routes) {
+	        routes.event('GhostKernel', 'start');
+	        // TODO: 仕様上shellの右クリックを捕捉するべきだが現状のcuttlebone実装上マネージャのstartでハンドラを登録する
+	      });
+	    }
+	  }]);
+	  return MenuRouting;
+	}();
+	
+	var MenuController = exports.MenuController = function (_GhostKernelControlle) {
+	  (0, _inherits3.default)(MenuController, _GhostKernelControlle);
+	
+	  function MenuController(kernel) {
+	    (0, _classCallCheck3.default)(this, MenuController);
+	    return (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(MenuController).call(this, kernel));
+	  }
+	
+	  (0, _createClass3.default)(MenuController, [{
+	    key: 'start',
+	    value: function start() {
+	      var menu = new Menu(this.kernel);
+	      this.kernel.components.Named.contextmenu(menu.contextmenu.bind(menu));
+	    }
+	  }]);
+	  return MenuController;
+	}(_ghostKernel.GhostKernelController);
+	
+	_ghostKernel.GhostKernelControllers.MenuController = MenuController;
+	_ghostKernel.GhostKernelRoutings.push(MenuRouting);
+	//# sourceMappingURL=menu.js.map
+
+
+/***/ },
+/* 163 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Generated by CoffeeScript 1.10.0
 	(function() {
 	  var Balloon, Blimp, Named, NamedManager, Scope, Shell, Surface, SurfaceRender, SurfaceUtil, b_version, n_version, ref, ref1, ref2, s_version;
 	
-	  ref = __webpack_require__(161), Shell = ref.Shell, Surface = ref.Surface, SurfaceUtil = ref.SurfaceUtil, SurfaceRender = ref.SurfaceRender, s_version = ref.version;
+	  ref = __webpack_require__(164), Shell = ref.Shell, Surface = ref.Surface, SurfaceUtil = ref.SurfaceUtil, SurfaceRender = ref.SurfaceRender, s_version = ref.version;
 	
-	  ref1 = __webpack_require__(208), Balloon = ref1.Balloon, Blimp = ref1.Blimp, b_version = ref1.version;
+	  ref1 = __webpack_require__(211), Balloon = ref1.Balloon, Blimp = ref1.Blimp, b_version = ref1.version;
 	
-	  ref2 = __webpack_require__(218), NamedManager = ref2.NamedManager, Named = ref2.Named, Scope = ref2.Scope, n_version = ref2.version;
+	  ref2 = __webpack_require__(221), NamedManager = ref2.NamedManager, Named = ref2.Named, Scope = ref2.Scope, n_version = ref2.version;
 	
 	  exports.versions = {
 	    Shell: s_version,
@@ -17359,15 +18537,15 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 161 */
-[244, 162, 163, 165, 168, 167, 207],
-/* 162 */
-[245, 163],
-/* 163 */
+/* 164 */
+[247, 165, 166, 168, 171, 170, 210],
+/* 165 */
+[248, 166],
+/* 166 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(Promise) {/// <reference path="../typings/tsd.d.ts"/>
-	var Encoding = __webpack_require__(164);
+	var Encoding = __webpack_require__(167);
 	function pna(srfCnv) {
 	    var cnv = srfCnv.cnv, png = srfCnv.png, pna = srfCnv.pna;
 	    if (cnv != null) {
@@ -17760,7 +18938,7 @@ var ikagakaApplication =
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 164 */
+/* 167 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -24051,9 +25229,9 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 165 */
-[246, 162, 163, 167],
-/* 166 */
+/* 168 */
+[249, 165, 166, 170],
+/* 169 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24348,7 +25526,7 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 167 */
+/* 170 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*eslint-disable no-unused-vars*/
@@ -34428,16 +35606,16 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 168 */
-[247, 165, 163, 167],
-/* 169 */
+/* 171 */
+[250, 168, 166, 170],
+/* 172 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(170)
+	module.exports = __webpack_require__(173)
 
 
 /***/ },
-/* 170 */
+/* 173 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Generated by CoffeeScript 1.10.0
@@ -34484,8 +35662,8 @@ var ikagakaApplication =
 	
 	/* (C) 2014 Narazaka : Licensed under The MIT License - http://narazaka.net/license/MIT?2014 */
 	
-	if ("function" !== "undefined" && __webpack_require__(171) !== null) {
-	  jsyaml = __webpack_require__(172);
+	if ("function" !== "undefined" && __webpack_require__(174) !== null) {
+	  jsyaml = __webpack_require__(175);
 	}
 	
 	SurfacesTxt2Yaml = {};
@@ -35613,12 +36791,12 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 171 */
+/* 174 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./surfaces_txt2yaml": 170,
-		"./surfaces_txt2yaml.js": 170
+		"./surfaces_txt2yaml": 173,
+		"./surfaces_txt2yaml.js": 173
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -35631,31 +36809,31 @@ var ikagakaApplication =
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 171;
+	webpackContext.id = 174;
 
 
 /***/ },
-/* 172 */
+/* 175 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	
-	var yaml = __webpack_require__(173);
+	var yaml = __webpack_require__(176);
 	
 	
 	module.exports = yaml;
 
 
 /***/ },
-/* 173 */
+/* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	
-	var loader = __webpack_require__(174);
-	var dumper = __webpack_require__(206);
+	var loader = __webpack_require__(177);
+	var dumper = __webpack_require__(209);
 	
 	
 	function deprecated(name) {
@@ -35665,25 +36843,25 @@ var ikagakaApplication =
 	}
 	
 	
-	module.exports.Type                = __webpack_require__(180);
-	module.exports.Schema              = __webpack_require__(179);
-	module.exports.FAILSAFE_SCHEMA     = __webpack_require__(183);
-	module.exports.JSON_SCHEMA         = __webpack_require__(182);
-	module.exports.CORE_SCHEMA         = __webpack_require__(181);
-	module.exports.DEFAULT_SAFE_SCHEMA = __webpack_require__(178);
-	module.exports.DEFAULT_FULL_SCHEMA = __webpack_require__(201);
+	module.exports.Type                = __webpack_require__(183);
+	module.exports.Schema              = __webpack_require__(182);
+	module.exports.FAILSAFE_SCHEMA     = __webpack_require__(186);
+	module.exports.JSON_SCHEMA         = __webpack_require__(185);
+	module.exports.CORE_SCHEMA         = __webpack_require__(184);
+	module.exports.DEFAULT_SAFE_SCHEMA = __webpack_require__(181);
+	module.exports.DEFAULT_FULL_SCHEMA = __webpack_require__(204);
 	module.exports.load                = loader.load;
 	module.exports.loadAll             = loader.loadAll;
 	module.exports.safeLoad            = loader.safeLoad;
 	module.exports.safeLoadAll         = loader.safeLoadAll;
 	module.exports.dump                = dumper.dump;
 	module.exports.safeDump            = dumper.safeDump;
-	module.exports.YAMLException       = __webpack_require__(176);
+	module.exports.YAMLException       = __webpack_require__(179);
 	
 	// Deprecated schema names from JS-YAML 2.0.x
-	module.exports.MINIMAL_SCHEMA = __webpack_require__(183);
-	module.exports.SAFE_SCHEMA    = __webpack_require__(178);
-	module.exports.DEFAULT_SCHEMA = __webpack_require__(201);
+	module.exports.MINIMAL_SCHEMA = __webpack_require__(186);
+	module.exports.SAFE_SCHEMA    = __webpack_require__(181);
+	module.exports.DEFAULT_SCHEMA = __webpack_require__(204);
 	
 	// Deprecated functions from JS-YAML 1.x.x
 	module.exports.scan           = deprecated('scan');
@@ -35693,18 +36871,18 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 174 */
+/* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	/*eslint-disable max-len,no-use-before-define*/
 	
-	var common              = __webpack_require__(175);
-	var YAMLException       = __webpack_require__(176);
-	var Mark                = __webpack_require__(177);
-	var DEFAULT_SAFE_SCHEMA = __webpack_require__(178);
-	var DEFAULT_FULL_SCHEMA = __webpack_require__(201);
+	var common              = __webpack_require__(178);
+	var YAMLException       = __webpack_require__(179);
+	var Mark                = __webpack_require__(180);
+	var DEFAULT_SAFE_SCHEMA = __webpack_require__(181);
+	var DEFAULT_FULL_SCHEMA = __webpack_require__(204);
 	
 	
 	var _hasOwnProperty = Object.prototype.hasOwnProperty;
@@ -37285,7 +38463,7 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 175 */
+/* 178 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -37350,7 +38528,7 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 176 */
+/* 179 */
 /***/ function(module, exports) {
 
 	// YAML error class. http://stackoverflow.com/questions/8458984
@@ -37399,13 +38577,13 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 177 */
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	
-	var common = __webpack_require__(175);
+	var common = __webpack_require__(178);
 	
 	
 	function Mark(name, buffer, position, line, column) {
@@ -37481,7 +38659,7 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 178 */
+/* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// JS-YAML's default schema for `safeLoad` function.
@@ -37494,37 +38672,37 @@ var ikagakaApplication =
 	'use strict';
 	
 	
-	var Schema = __webpack_require__(179);
+	var Schema = __webpack_require__(182);
 	
 	
 	module.exports = new Schema({
 	  include: [
-	    __webpack_require__(181)
+	    __webpack_require__(184)
 	  ],
 	  implicit: [
-	    __webpack_require__(191),
-	    __webpack_require__(192)
+	    __webpack_require__(194),
+	    __webpack_require__(195)
 	  ],
 	  explicit: [
-	    __webpack_require__(193),
-	    __webpack_require__(198),
-	    __webpack_require__(199),
-	    __webpack_require__(200)
+	    __webpack_require__(196),
+	    __webpack_require__(201),
+	    __webpack_require__(202),
+	    __webpack_require__(203)
 	  ]
 	});
 
 
 /***/ },
-/* 179 */
+/* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	/*eslint-disable max-len*/
 	
-	var common        = __webpack_require__(175);
-	var YAMLException = __webpack_require__(176);
-	var Type          = __webpack_require__(180);
+	var common        = __webpack_require__(178);
+	var YAMLException = __webpack_require__(179);
+	var Type          = __webpack_require__(183);
 	
 	
 	function compileList(schema, name, result) {
@@ -37625,12 +38803,12 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 180 */
+/* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var YAMLException = __webpack_require__(176);
+	var YAMLException = __webpack_require__(179);
 	
 	var TYPE_CONSTRUCTOR_OPTIONS = [
 	  'kind',
@@ -37692,7 +38870,7 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 181 */
+/* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Standard YAML's Core schema.
@@ -37705,18 +38883,18 @@ var ikagakaApplication =
 	'use strict';
 	
 	
-	var Schema = __webpack_require__(179);
+	var Schema = __webpack_require__(182);
 	
 	
 	module.exports = new Schema({
 	  include: [
-	    __webpack_require__(182)
+	    __webpack_require__(185)
 	  ]
 	});
 
 
 /***/ },
-/* 182 */
+/* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Standard YAML's JSON schema.
@@ -37730,24 +38908,24 @@ var ikagakaApplication =
 	'use strict';
 	
 	
-	var Schema = __webpack_require__(179);
+	var Schema = __webpack_require__(182);
 	
 	
 	module.exports = new Schema({
 	  include: [
-	    __webpack_require__(183)
+	    __webpack_require__(186)
 	  ],
 	  implicit: [
-	    __webpack_require__(187),
-	    __webpack_require__(188),
-	    __webpack_require__(189),
-	    __webpack_require__(190)
+	    __webpack_require__(190),
+	    __webpack_require__(191),
+	    __webpack_require__(192),
+	    __webpack_require__(193)
 	  ]
 	});
 
 
 /***/ },
-/* 183 */
+/* 186 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Standard YAML's Failsafe schema.
@@ -37757,57 +38935,15 @@ var ikagakaApplication =
 	'use strict';
 	
 	
-	var Schema = __webpack_require__(179);
+	var Schema = __webpack_require__(182);
 	
 	
 	module.exports = new Schema({
 	  explicit: [
-	    __webpack_require__(184),
-	    __webpack_require__(185),
-	    __webpack_require__(186)
+	    __webpack_require__(187),
+	    __webpack_require__(188),
+	    __webpack_require__(189)
 	  ]
-	});
-
-
-/***/ },
-/* 184 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var Type = __webpack_require__(180);
-	
-	module.exports = new Type('tag:yaml.org,2002:str', {
-	  kind: 'scalar',
-	  construct: function (data) { return data !== null ? data : ''; }
-	});
-
-
-/***/ },
-/* 185 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var Type = __webpack_require__(180);
-	
-	module.exports = new Type('tag:yaml.org,2002:seq', {
-	  kind: 'sequence',
-	  construct: function (data) { return data !== null ? data : []; }
-	});
-
-
-/***/ },
-/* 186 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var Type = __webpack_require__(180);
-	
-	module.exports = new Type('tag:yaml.org,2002:map', {
-	  kind: 'mapping',
-	  construct: function (data) { return data !== null ? data : {}; }
 	});
 
 
@@ -37817,7 +38953,49 @@ var ikagakaApplication =
 
 	'use strict';
 	
-	var Type = __webpack_require__(180);
+	var Type = __webpack_require__(183);
+	
+	module.exports = new Type('tag:yaml.org,2002:str', {
+	  kind: 'scalar',
+	  construct: function (data) { return data !== null ? data : ''; }
+	});
+
+
+/***/ },
+/* 188 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var Type = __webpack_require__(183);
+	
+	module.exports = new Type('tag:yaml.org,2002:seq', {
+	  kind: 'sequence',
+	  construct: function (data) { return data !== null ? data : []; }
+	});
+
+
+/***/ },
+/* 189 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var Type = __webpack_require__(183);
+	
+	module.exports = new Type('tag:yaml.org,2002:map', {
+	  kind: 'mapping',
+	  construct: function (data) { return data !== null ? data : {}; }
+	});
+
+
+/***/ },
+/* 190 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var Type = __webpack_require__(183);
 	
 	function resolveYamlNull(data) {
 	  if (data === null) return true;
@@ -37852,12 +39030,12 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 188 */
+/* 191 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Type = __webpack_require__(180);
+	var Type = __webpack_require__(183);
 	
 	function resolveYamlBoolean(data) {
 	  if (data === null) return false;
@@ -37893,13 +39071,13 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 189 */
+/* 192 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var common = __webpack_require__(175);
-	var Type   = __webpack_require__(180);
+	var common = __webpack_require__(178);
+	var Type   = __webpack_require__(183);
 	
 	function isHexCode(c) {
 	  return ((0x30/* 0 */ <= c) && (c <= 0x39/* 9 */)) ||
@@ -38067,13 +39245,13 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 190 */
+/* 193 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var common = __webpack_require__(175);
-	var Type   = __webpack_require__(180);
+	var common = __webpack_require__(178);
+	var Type   = __webpack_require__(183);
 	
 	var YAML_FLOAT_PATTERN = new RegExp(
 	  '^(?:[-+]?(?:[0-9][0-9_]*)\\.[0-9_]*(?:[eE][-+][0-9]+)?' +
@@ -38178,12 +39356,12 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 191 */
+/* 194 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Type = __webpack_require__(180);
+	var Type = __webpack_require__(183);
 	
 	var YAML_DATE_REGEXP = new RegExp(
 	  '^([0-9][0-9][0-9][0-9])'          + // [1] year
@@ -38272,12 +39450,12 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 192 */
+/* 195 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Type = __webpack_require__(180);
+	var Type = __webpack_require__(183);
 	
 	function resolveYamlMerge(data) {
 	  return data === '<<' || data === null;
@@ -38290,7 +39468,7 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 193 */
+/* 196 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var require;'use strict';
@@ -38302,10 +39480,10 @@ var ikagakaApplication =
 	try {
 	  // A trick for browserified version, to not include `Buffer` shim
 	  var _require = require;
-	  NodeBuffer = __webpack_require__(194).Buffer;
+	  NodeBuffer = __webpack_require__(197).Buffer;
 	} catch (__) {}
 	
-	var Type       = __webpack_require__(180);
+	var Type       = __webpack_require__(183);
 	
 	
 	// [ 64, 65, 66 ] -> [ padding, CR, LF ]
@@ -38431,7 +39609,7 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 194 */
+/* 197 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(Buffer, global) {/*!
@@ -38444,9 +39622,9 @@ var ikagakaApplication =
 	
 	'use strict'
 	
-	var base64 = __webpack_require__(195)
-	var ieee754 = __webpack_require__(196)
-	var isArray = __webpack_require__(197)
+	var base64 = __webpack_require__(198)
+	var ieee754 = __webpack_require__(199)
+	var isArray = __webpack_require__(200)
 	
 	exports.Buffer = Buffer
 	exports.SlowBuffer = SlowBuffer
@@ -39983,10 +41161,10 @@ var ikagakaApplication =
 	  return i
 	}
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(194).Buffer, (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(197).Buffer, (function() { return this; }())))
 
 /***/ },
-/* 195 */
+/* 198 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
@@ -40116,7 +41294,7 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 196 */
+/* 199 */
 /***/ function(module, exports) {
 
 	exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -40206,7 +41384,7 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 197 */
+/* 200 */
 /***/ function(module, exports) {
 
 	var toString = {}.toString;
@@ -40217,12 +41395,12 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 198 */
+/* 201 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Type = __webpack_require__(180);
+	var Type = __webpack_require__(183);
 	
 	var _hasOwnProperty = Object.prototype.hasOwnProperty;
 	var _toString       = Object.prototype.toString;
@@ -40267,12 +41445,12 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 199 */
+/* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Type = __webpack_require__(180);
+	var Type = __webpack_require__(183);
 	
 	var _toString = Object.prototype.toString;
 	
@@ -40326,12 +41504,12 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 200 */
+/* 203 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Type = __webpack_require__(180);
+	var Type = __webpack_require__(183);
 	
 	var _hasOwnProperty = Object.prototype.hasOwnProperty;
 	
@@ -40361,7 +41539,7 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 201 */
+/* 204 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// JS-YAML's default schema for `load` function.
@@ -40376,28 +41554,28 @@ var ikagakaApplication =
 	'use strict';
 	
 	
-	var Schema = __webpack_require__(179);
+	var Schema = __webpack_require__(182);
 	
 	
 	module.exports = Schema.DEFAULT = new Schema({
 	  include: [
-	    __webpack_require__(178)
+	    __webpack_require__(181)
 	  ],
 	  explicit: [
-	    __webpack_require__(202),
-	    __webpack_require__(203),
-	    __webpack_require__(204)
+	    __webpack_require__(205),
+	    __webpack_require__(206),
+	    __webpack_require__(207)
 	  ]
 	});
 
 
 /***/ },
-/* 202 */
+/* 205 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Type = __webpack_require__(180);
+	var Type = __webpack_require__(183);
 	
 	function resolveJavascriptUndefined() {
 	  return true;
@@ -40426,12 +41604,12 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 203 */
+/* 206 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Type = __webpack_require__(180);
+	var Type = __webpack_require__(183);
 	
 	function resolveJavascriptRegExp(data) {
 	  if (data === null) return false;
@@ -40492,7 +41670,7 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 204 */
+/* 207 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var require;'use strict';
@@ -40509,13 +41687,13 @@ var ikagakaApplication =
 	try {
 	  // workaround to exclude package from browserify list.
 	  var _require = require;
-	  esprima = __webpack_require__(205);
+	  esprima = __webpack_require__(208);
 	} catch (_) {
 	  /*global window */
 	  if (typeof window !== 'undefined') esprima = window.esprima;
 	}
 	
-	var Type = __webpack_require__(180);
+	var Type = __webpack_require__(183);
 	
 	function resolveJavascriptFunction(data) {
 	  if (data === null) return false;
@@ -40582,7 +41760,7 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 205 */
+/* 208 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
@@ -46327,17 +47505,17 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 206 */
+/* 209 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	/*eslint-disable no-use-before-define*/
 	
-	var common              = __webpack_require__(175);
-	var YAMLException       = __webpack_require__(176);
-	var DEFAULT_FULL_SCHEMA = __webpack_require__(201);
-	var DEFAULT_SAFE_SCHEMA = __webpack_require__(178);
+	var common              = __webpack_require__(178);
+	var YAMLException       = __webpack_require__(179);
+	var DEFAULT_FULL_SCHEMA = __webpack_require__(204);
+	var DEFAULT_SAFE_SCHEMA = __webpack_require__(181);
 	
 	var _toString       = Object.prototype.toString;
 	var _hasOwnProperty = Object.prototype.hasOwnProperty;
@@ -47135,7 +48313,7 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 207 */
+/* 210 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -47255,18 +48433,18 @@ var ikagakaApplication =
 	};
 
 /***/ },
-/* 208 */
+/* 211 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Generated by CoffeeScript 1.10.0
 	(function() {
 	  var Balloon, Blimp, version;
 	
-	  Balloon = __webpack_require__(209);
+	  Balloon = __webpack_require__(212);
 	
-	  Blimp = __webpack_require__(216);
+	  Blimp = __webpack_require__(219);
 	
-	  version = __webpack_require__(217).version;
+	  version = __webpack_require__(220).version;
 	
 	  exports.Balloon = Balloon;
 	
@@ -47278,7 +48456,7 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 209 */
+/* 212 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(Promise) {// Generated by CoffeeScript 1.10.0
@@ -47287,13 +48465,13 @@ var ikagakaApplication =
 	    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
 	    hasProp = {}.hasOwnProperty;
 	
-	  SurfaceUtil = __webpack_require__(210).SurfaceUtil;
+	  SurfaceUtil = __webpack_require__(213).SurfaceUtil;
 	
-	  Blimp = __webpack_require__(216);
+	  Blimp = __webpack_require__(219);
 	
-	  EventEmitter = __webpack_require__(166);
+	  EventEmitter = __webpack_require__(169);
 	
-	  $ = __webpack_require__(167);
+	  $ = __webpack_require__(170);
 	
 	  Balloon = (function(superClass) {
 	    extend(Balloon, superClass);
@@ -47500,17 +48678,17 @@ var ikagakaApplication =
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 210 */
-[244, 211, 212, 213, 214, 167, 215],
-/* 211 */
-[245, 212],
-/* 212 */
-163,
 /* 213 */
-[246, 211, 212, 167],
+[247, 214, 215, 216, 217, 170, 218],
 /* 214 */
-[247, 213, 212, 167],
+[248, 215],
 /* 215 */
+166,
+/* 216 */
+[249, 214, 215, 170],
+/* 217 */
+[250, 216, 215, 170],
+/* 218 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -47630,7 +48808,7 @@ var ikagakaApplication =
 	};
 
 /***/ },
-/* 216 */
+/* 219 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Generated by CoffeeScript 1.10.0
@@ -47639,9 +48817,9 @@ var ikagakaApplication =
 	    bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
 	    slice = [].slice;
 	
-	  SurfaceUtil = __webpack_require__(210).SurfaceUtil;
+	  SurfaceUtil = __webpack_require__(213).SurfaceUtil;
 	
-	  $ = __webpack_require__(167);
+	  $ = __webpack_require__(170);
 	
 	  Blimp = (function() {
 	    function Blimp(element, scopeId, balloonId1, balloon) {
@@ -48408,7 +49586,7 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 217 */
+/* 220 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -48526,22 +49704,22 @@ var ikagakaApplication =
 	};
 
 /***/ },
-/* 218 */
+/* 221 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Generated by CoffeeScript 1.10.0
 	(function() {
 	  var $, Named, NamedManager, Scope, version;
 	
-	  NamedManager = __webpack_require__(219);
+	  NamedManager = __webpack_require__(222);
 	
-	  Named = __webpack_require__(220);
+	  Named = __webpack_require__(223);
 	
-	  Scope = __webpack_require__(229);
+	  Scope = __webpack_require__(232);
 	
-	  $ = __webpack_require__(226);
+	  $ = __webpack_require__(229);
 	
-	  version = __webpack_require__(231).version;
+	  version = __webpack_require__(234).version;
 	
 	  exports.NamedManager = NamedManager;
 	
@@ -48559,7 +49737,7 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 219 */
+/* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Generated by CoffeeScript 1.10.0
@@ -48568,11 +49746,11 @@ var ikagakaApplication =
 	    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
 	    hasProp = {}.hasOwnProperty;
 	
-	  Named = __webpack_require__(220);
+	  Named = __webpack_require__(223);
 	
-	  EventEmitter = __webpack_require__(166);
+	  EventEmitter = __webpack_require__(169);
 	
-	  $ = __webpack_require__(226);
+	  $ = __webpack_require__(229);
 	
 	  NamedManager = (function(superClass) {
 	    extend(NamedManager, superClass);
@@ -48660,7 +49838,7 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 220 */
+/* 223 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(Promise) {// Generated by CoffeeScript 1.10.0
@@ -48669,15 +49847,15 @@ var ikagakaApplication =
 	    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
 	    hasProp = {}.hasOwnProperty;
 	
-	  recursiveElementFromPoint = __webpack_require__(221).recursiveElementFromPoint;
+	  recursiveElementFromPoint = __webpack_require__(224).recursiveElementFromPoint;
 	
-	  SurfaceUtil = __webpack_require__(222).SurfaceUtil;
+	  SurfaceUtil = __webpack_require__(225).SurfaceUtil;
 	
-	  Scope = __webpack_require__(229);
+	  Scope = __webpack_require__(232);
 	
-	  EventEmitter = __webpack_require__(166);
+	  EventEmitter = __webpack_require__(169);
 	
-	  $ = __webpack_require__(230)(__webpack_require__(226));
+	  $ = __webpack_require__(233)(__webpack_require__(229));
 	
 	  Named = (function(superClass) {
 	    extend(Named, superClass);
@@ -49105,14 +50283,14 @@ var ikagakaApplication =
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 221 */
+/* 224 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Generated by CoffeeScript 1.10.0
 	(function() {
 	  var SurfaceUtil, eventPropagationSim, recursiveElementFromPoint;
 	
-	  SurfaceUtil = __webpack_require__(222).SurfaceUtil;
+	  SurfaceUtil = __webpack_require__(225).SurfaceUtil;
 	
 	  recursiveElementFromPoint = function(ev, parent, target) {
 	    var clientX, clientY, left, offsetX, offsetY, pageX, pageY, ref, ref1, ref2, result, scrollX, scrollY, tmp, top, under;
@@ -49210,15 +50388,15 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 222 */
-[244, 223, 224, 225, 227, 226, 228],
-/* 223 */
-[245, 224],
-/* 224 */
-163,
 /* 225 */
-[246, 223, 224, 226],
+[247, 226, 227, 228, 230, 229, 231],
 /* 226 */
+[248, 227],
+/* 227 */
+166,
+/* 228 */
+[249, 226, 227, 229],
+/* 229 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -60232,9 +61410,9 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 227 */
-[247, 225, 224, 226],
-/* 228 */
+/* 230 */
+[250, 228, 227, 229],
+/* 231 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -60354,16 +61532,16 @@ var ikagakaApplication =
 	};
 
 /***/ },
-/* 229 */
+/* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Generated by CoffeeScript 1.10.0
 	(function() {
 	  var $, Scope, SurfaceUtil;
 	
-	  SurfaceUtil = __webpack_require__(222).SurfaceUtil;
+	  SurfaceUtil = __webpack_require__(225).SurfaceUtil;
 	
-	  $ = __webpack_require__(226);
+	  $ = __webpack_require__(229);
 	
 	  Scope = (function() {
 	    function Scope(scopeId, shell, balloon, named) {
@@ -60482,7 +61660,7 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 230 */
+/* 233 */
 /***/ function(module, exports) {
 
 	// Generated by CoffeeScript 1.10.0
@@ -62335,7 +63513,7 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 231 */
+/* 234 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -62452,7 +63630,7 @@ var ikagakaApplication =
 	};
 
 /***/ },
-/* 232 */
+/* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {// Generated by CoffeeScript 1.10.0
@@ -62460,7 +63638,7 @@ var ikagakaApplication =
 	  var NanikaStorage, Promise, name, ref, ref1, value;
 	
 	  if (typeof Promise === "undefined" || Promise === null) {
-	    if ("function" !== "undefined" && __webpack_require__(233) !== null) {
+	    if ("function" !== "undefined" && __webpack_require__(236) !== null) {
 	      Promise = __webpack_require__(4);
 	    } else if (typeof window !== "undefined" && window !== null) {
 	      Promise = window.Promise;
@@ -63089,9 +64267,9 @@ var ikagakaApplication =
 	    window.NanikaStorage = NanikaStorage;
 	  }
 	
-	  if ("function" !== "undefined" && __webpack_require__(233) !== null) {
-	    __webpack_require__(235);
-	    __webpack_require__(237);
+	  if ("function" !== "undefined" && __webpack_require__(236) !== null) {
+	    __webpack_require__(238);
+	    __webpack_require__(240);
 	  }
 	
 	}).call(this);
@@ -63099,20 +64277,20 @@ var ikagakaApplication =
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(139)(module)))
 
 /***/ },
-/* 233 */
+/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./NanikaStorage": 232,
-		"./NanikaStorage.backend.FS": 235,
-		"./NanikaStorage.backend.FS.js": 235,
-		"./NanikaStorage.backend.InMemory": 237,
-		"./NanikaStorage.backend.InMemory.js": 237,
-		"./NanikaStorage.js": 232,
-		"./bower": 241,
-		"./bower.json": 241,
-		"./package": 242,
-		"./package.json": 242
+		"./NanikaStorage": 235,
+		"./NanikaStorage.backend.FS": 238,
+		"./NanikaStorage.backend.FS.js": 238,
+		"./NanikaStorage.backend.InMemory": 240,
+		"./NanikaStorage.backend.InMemory.js": 240,
+		"./NanikaStorage.js": 235,
+		"./bower": 244,
+		"./bower.json": 244,
+		"./package": 245,
+		"./package.json": 245
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -63125,12 +64303,12 @@ var ikagakaApplication =
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 233;
+	webpackContext.id = 236;
 
 
 /***/ },
-/* 234 */,
-/* 235 */
+/* 237 */,
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(Promise, module) {// Generated by CoffeeScript 1.10.0
@@ -63138,8 +64316,8 @@ var ikagakaApplication =
 	  var NanikaStorage, debug,
 	    slice = [].slice;
 	
-	  if ("function" !== "undefined" && __webpack_require__(233) !== null) {
-	    NanikaStorage = __webpack_require__(232);
+	  if ("function" !== "undefined" && __webpack_require__(236) !== null) {
+	    NanikaStorage = __webpack_require__(235);
 	  } else if (typeof window !== "undefined" && window !== null) {
 	    NanikaStorage = window.NanikaStorage;
 	  }
@@ -63391,7 +64569,7 @@ var ikagakaApplication =
 	    };
 	
 	    FS.prototype.shell_name = function(dirpath, shellpath) {
-	      return this.shell_descript(dirpath.shellpath).then(function(descript) {
+	      return this.shell_descript(dirpath, shellpath).then(function(descript) {
 	        return descript.name;
 	      });
 	    };
@@ -63943,16 +65121,16 @@ var ikagakaApplication =
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(139)(module)))
 
 /***/ },
-/* 236 */,
-/* 237 */
+/* 239 */,
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {// Generated by CoffeeScript 1.10.0
 	(function() {
 	  var NanikaStorage;
 	
-	  if ("function" !== "undefined" && __webpack_require__(233) !== null) {
-	    NanikaStorage = __webpack_require__(232);
+	  if ("function" !== "undefined" && __webpack_require__(236) !== null) {
+	    NanikaStorage = __webpack_require__(235);
 	  } else if (typeof window !== "undefined" && window !== null) {
 	    NanikaStorage = window.NanikaStorage;
 	  }
@@ -64189,10 +65367,10 @@ var ikagakaApplication =
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(139)(module)))
 
 /***/ },
-/* 238 */,
-/* 239 */,
-/* 240 */,
-/* 241 */
+/* 241 */,
+/* 242 */,
+/* 243 */,
+/* 244 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -64214,7 +65392,7 @@ var ikagakaApplication =
 	};
 
 /***/ },
-/* 242 */
+/* 245 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -64233,14 +65411,14 @@ var ikagakaApplication =
 			]
 		],
 		"_from": "nanika-storage@latest",
-		"_id": "nanika-storage@0.3.4",
+		"_id": "nanika-storage@0.3.5",
 		"_inCache": true,
 		"_installable": true,
 		"_location": "/nanika-storage",
 		"_nodeVersion": "6.2.2",
 		"_npmOperationalInternal": {
 			"host": "packages-12-west.internal.npmjs.com",
-			"tmp": "tmp/nanika-storage-0.3.4.tgz_1470837034090_0.547378133283928"
+			"tmp": "tmp/nanika-storage-0.3.5.tgz_1470928921263_0.10530899208970368"
 		},
 		"_npmUser": {
 			"name": "narazaka",
@@ -64261,8 +65439,8 @@ var ikagakaApplication =
 			"#USER",
 			"/"
 		],
-		"_resolved": "https://registry.npmjs.org/nanika-storage/-/nanika-storage-0.3.4.tgz",
-		"_shasum": "add0aad9088e7392f121e055f3286c2413571dcf",
+		"_resolved": "https://registry.npmjs.org/nanika-storage/-/nanika-storage-0.3.5.tgz",
+		"_shasum": "6a24d8bb4642eaa689d9fee7d507a675c06b0d69",
 		"_shrinkwrap": null,
 		"_spec": "nanika-storage@latest",
 		"_where": "D:\\make\\ukagaka\\Ikagaka\\ikagaka-app",
@@ -64288,10 +65466,10 @@ var ikagakaApplication =
 		},
 		"directories": {},
 		"dist": {
-			"shasum": "add0aad9088e7392f121e055f3286c2413571dcf",
-			"tarball": "https://registry.npmjs.org/nanika-storage/-/nanika-storage-0.3.4.tgz"
+			"shasum": "6a24d8bb4642eaa689d9fee7d507a675c06b0d69",
+			"tarball": "https://registry.npmjs.org/nanika-storage/-/nanika-storage-0.3.5.tgz"
 		},
-		"gitHead": "9f11bb7c2584a371b4cd4a17cc9faf18c565a001",
+		"gitHead": "3c863cfde3bc07b30644f659b2ba98d355a6ae10",
 		"homepage": "https://github.com/Ikagaka/NanikaStorage#readme",
 		"keywords": [
 			"ukagaka",
@@ -64315,11 +65493,11 @@ var ikagakaApplication =
 		"scripts": {
 			"test": "mocha"
 		},
-		"version": "0.3.4"
+		"version": "0.3.5"
 	};
 
 /***/ },
-/* 243 */
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -64415,7 +65593,7 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 244 */
+/* 247 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__, __webpack_module_template_argument_1__, __webpack_module_template_argument_2__, __webpack_module_template_argument_3__, __webpack_module_template_argument_4__, __webpack_module_template_argument_5__) {
 
 	/// <reference path="../typings/tsd.d.ts"/>
@@ -64435,7 +65613,7 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 245 */
+/* 248 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	/// <reference path="../typings/tsd.d.ts"/>
@@ -64785,7 +65963,7 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 246 */
+/* 249 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__, __webpack_module_template_argument_1__, __webpack_module_template_argument_2__) {
 
 	/// <reference path="../typings/tsd.d.ts"/>
@@ -64796,7 +65974,7 @@ var ikagakaApplication =
 	};
 	var SurfaceRender_1 = __webpack_require__(__webpack_module_template_argument_0__);
 	var SurfaceUtil = __webpack_require__(__webpack_module_template_argument_1__);
-	var EventEmitter = __webpack_require__(166);
+	var EventEmitter = __webpack_require__(169);
 	var $ = __webpack_require__(__webpack_module_template_argument_2__);
 	var Surface = (function (_super) {
 	    __extends(Surface, _super);
@@ -65358,7 +66536,7 @@ var ikagakaApplication =
 
 
 /***/ },
-/* 247 */
+/* 250 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__, __webpack_module_template_argument_1__, __webpack_module_template_argument_2__) {
 
 	/* WEBPACK VAR INJECTION */(function(Promise) {/// <reference path="../typings/tsd.d.ts"/>
@@ -65369,8 +66547,8 @@ var ikagakaApplication =
 	};
 	var Surface_1 = __webpack_require__(__webpack_module_template_argument_0__);
 	var SurfaceUtil = __webpack_require__(__webpack_module_template_argument_1__);
-	var SurfacesTxt2Yaml = __webpack_require__(169);
-	var EventEmitter = __webpack_require__(166);
+	var SurfacesTxt2Yaml = __webpack_require__(172);
+	var EventEmitter = __webpack_require__(169);
 	var $ = __webpack_require__(__webpack_module_template_argument_2__);
 	var Shell = (function (_super) {
 	    __extends(Shell, _super);
