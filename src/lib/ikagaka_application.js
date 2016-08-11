@@ -2,10 +2,8 @@ require('babel-runtime/core-js/promise').default = require('bluebird');
 
 import {NamedKernelManager, NamedKernelManagerControllers} from 'named-kernel-manager';
 import 'named-kernel-manager-default-plugins';
-console.log(NamedKernelManagerControllers);
 import {GhostKernelControllers} from 'ghost-kernel';
 import 'ghost-kernel-default-plugins';
-console.log(GhostKernelControllers);
 import cuttlebone from 'cuttlebone';
 import NanikaStorage from 'nanika-storage';
 import {TimerEventSource} from 'ukagaka-timer-event-source';

@@ -117,11 +117,6 @@ var ikagakaApplication =
 	
 	__webpack_require__(8).default = __webpack_require__(4);
 	
-	console.log(_namedKernelManager.NamedKernelManagerControllers);
-	
-	console.log(_ghostKernel.GhostKernelControllers);
-	
-	
 	function promisify(fs) {
 		fs.mkdirPromise = function (dir) {
 			return new _promise2.default(function (resolve, reject) {
@@ -11637,16 +11632,19 @@ var ikagakaApplication =
 	  /**
 	   * @param {Shiori} shiori - The instance of SHIORI Shared Library Interface
 	   * @param {string} auto_convert_request_version - requests will be converted to this version
+	   * @param {boolean} auto_adjust_to_response_charset - request charset header will be set to previous response charset
 	   * @return {Shiorif} this
 	   */
 	  function Shiorif(shiori) {
 	    var auto_convert_request_version = arguments.length <= 1 || arguments[1] === undefined ? '2.6' : arguments[1];
+	    var auto_adjust_to_response_charset = arguments.length <= 2 || arguments[2] === undefined ? false : arguments[2];
 	    (0, _classCallCheck3.default)(this, Shiorif);
 	
 	    var _this = (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(Shiorif).call(this));
 	
 	    _this._shiori = shiori;
 	    _this.auto_convert_request_version = auto_convert_request_version;
+	    _this.auto_adjust_to_response_charset = auto_adjust_to_response_charset;
 	    _this._request_parser = new _shiorijk2.default.Shiori.Request.Parser();
 	    _this._response_parser = new _shiorijk2.default.Shiori.Response.Parser();
 	    return _this;
@@ -11701,12 +11699,16 @@ var ikagakaApplication =
 	      this.emit('request', transaction);
 	      var use_request = convert ? transaction.request.to(this.auto_convert_request_version) : transaction.request;
 	      for (var name in this.default_headers) {
-	        if (use_request.headers.header[name] != null) {
+	        if (use_request.headers.header[name] == null) {
 	          use_request.headers.header[name] = this.default_headers[name];
 	        }
 	      }
-	      return this.shiori.request(use_request).then(function (response) {
+	      if (this.auto_adjust_to_response_charset && this._last_response_charset) {
+	        use_request.headers.header.Charset = this._last_response_charset;
+	      }
+	      return this.shiori.request(use_request.toString()).then(function (response) {
 	        transaction.response = _this3._response_parser.parse(response);
+	        _this3._last_response_charset = transaction.response.headers.header.Charset;
 	        _this3.emit('response', transaction);
 	        return transaction;
 	      });
@@ -11842,6 +11844,27 @@ var ikagakaApplication =
 	    ,
 	    set: function set(version) {
 	      this._auto_convert_request_version = version;
+	    }
+	
+	    /**
+	     * request charset header will be set to previous response charset
+	     * @return {boolean} enabled or not
+	     */
+	
+	  }, {
+	    key: 'auto_adjust_to_response_charset',
+	    get: function get() {
+	      return this._auto_adjust_to_response_charset;
+	    }
+	
+	    /**
+	     * request charset header will be set to previous response charset
+	     * @param {boolean} enabled or not
+	     * @return {boolean} enabled or not
+	     */
+	    ,
+	    set: function set(enabled) {
+	      this._auto_adjust_to_response_charset = enabled;
 	    }
 	
 	    /**
@@ -12348,7 +12371,7 @@ var ikagakaApplication =
 	    results1 = [];
 	    for (name in ref) {
 	      value = ref[name];
-	      if (value.match(/\n/)) {
+	      if (("" + value).match(/\n/)) {
 	        throw 'Invalid header value - line feed found : [' + name + '] : ' + value;
 	      } else {
 	        results1.push(void 0);
@@ -12951,7 +12974,7 @@ var ikagakaApplication =
 /* 141 */
 /***/ function(module, exports, __webpack_require__) {
 
-	function _possibleConstructorReturn(e,r){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!r||"object"!=typeof r&&"function"!=typeof r?e:r}function _inherits(e,r){if("function"!=typeof r&&null!==r)throw new TypeError("Super expression must either be null or a function, not "+typeof r);e.prototype=Object.create(r&&r.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),r&&(Object.setPrototypeOf?Object.setPrototypeOf(e,r):e.__proto__=r)}function _classCallCheck(e,r){if(!(e instanceof r))throw new TypeError("Cannot call a class as a function")}if(false)var exports=window;var _createClass=function(){function e(e,r){for(var t=0;t<r.length;t++){var o=r[t];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(e,o.key,o)}}return function(r,t,o){return t&&e(r.prototype,t),o&&e(r,o),r}}();if(Object.defineProperty(exports,"__esModule",{value:!0}),"undefined"!="function")var ShioriJK=__webpack_require__(137);var ShioriConverter=function(){function e(){_classCallCheck(this,e)}return _createClass(e,null,[{key:"request_to",value:function(r,t){if(!r)throw new e.RequestNotSetError;return"4.0"===r.request_line.version?"4.0"===t?r:"3.0"===t?e.request_4to3(r):e.request_4to2(r):"3.0"===r.request_line.version?"4.0"===t?e.request_3to4(r):"3.0"===t?r:e.request_3to2(r):"4.0"===t?e.request_2to4(r):"3.0"===t?e.request_2to3(r):r}},{key:"response_to",value:function(r,t,o){if(!r)throw new e.RequestNotSetError;if(!t)throw new e.ResponseNotSetError;return"4.0"===t.status_line.version?"4.0"===o?t:"3.0"===o?e.response_4to3(r,t):e.response_4to2(r,t):"3.0"===t.status_line.version?"4.0"===o?e.response_3to4(r,t):"3.0"===o?t:e.response_3to2(r,t):"4.0"===o?e.response_2to4(r,t):"3.0"===o?e.response_2to3(r,t):t}},{key:"request_4to3",value:function(r){throw new e.NotImplementedError}},{key:"request_4to2",value:function(r){return e.request_3to2(e.request_4to3(r))}},{key:"method3to2",value:function(e){var r=e.headers.header.ID;return"version"===r?"GET Version":"OnTeach"===r?"TEACH":"ownerghostname"===r?"NOTIFY OwnerGhostName":"otherghostname"===r?"NOTIFY OtherGhostName":"NOTIFY"===e.request_line.method?void 0:r.match(/^[a-z]/)?"GET String":"GET Sentence"}},{key:"request_3to2",value:function(r){var t=e.method3to2(r);if(t){var o=r.headers.header.ID,n=new ShioriJK.Headers.Request,s=new ShioriJK.Message.Request({request_line:new ShioriJK.RequestLine({method:t,protocol:r.protocol,version:"2.6"}),headers:n});if("GET Sentence"===t&&null!=o){if("OnCommunicate"===o){n.header.Sender=r.headers.header.Reference0,n.header.Sentence=r.headers.header.Reference1,n.header.Age=r.headers.header.Age||"0";for(var a in r.headers.header){var i=r.headers.header[a],u=void 0;(u=a.match(/^Reference(\d+)$/))?n.header["Reference"+(u[1]-2)]=""+i:n.header[a]=""+i}return s}n.header.Event=o}else{if("GET String"!==t||null==o){if("TEACH"===t){n.header.Word=r.headers.header.Reference0;for(var a in r.headers.header){var i=r.headers.header[a],u=void 0;(u=a.match(/^Reference(\d+)$/))?n.header["Reference"+(u[1]-1)]=""+i:n.header[a]=""+i}return s}if("NOTIFY OwnerGhostName"===t)return n.header.Ghost=r.headers.header.Reference0,s;if("NOTIFY OtherGhostName"===t){var h=[];for(var a in r.headers.header){var i=r.headers.header[a];a.match(/^Reference\d+$/)?h.push(""+i):n.header[a]=""+i}var c=h.map(function(e){return"GhostEx: "+e+"\r\n"}).join("");return s.request_line+"\r\n"+s.headers+c+"\r\n"}return}n.header.ID=o}for(var a in r.headers.header)if("ID"!==a){var i=r.headers.header[a];n.header[a]=""+i}return s}}},{key:"request_2to3",value:function(r){throw new e.NotImplementedError}},{key:"request_3to4",value:function(r){throw new e.NotImplementedError}},{key:"request_2to4",value:function(r){return e.request_3to4(e.request_2to3(r))}},{key:"response_4to3",value:function(r,t){throw new e.NotImplementedError}},{key:"response_4to2",value:function(r,t){return e.response_3to2(e.response_4to3(r,t))}},{key:"response_3to2",value:function(r,t){throw new e.NotImplementedError}},{key:"response_2to3",value:function(r,t){var o=e.request_to(r,"2.6"),n=void 0;switch(o.request_line.method){case"GET String":n="String";break;case"GET Word":n="Word";break;case"GET Status":n="Status";break;default:n="Sentence"}var s=new ShioriJK.Headers.Response;null!=t.headers.header[n]&&(s.header.Value=t.headers.header[n]);for(var a in t.headers.header){var i=t.headers.header[a],u=void 0;(u=a.match(/^Reference(\d+)$/))?s.header["Reference"+(u[1]+1)]=i:"To"===a?s.header.Reference0=i:a!==n&&(s.header[a]=i)}return new ShioriJK.Message.Response({status_line:new ShioriJK.StatusLine({code:t.status_line.code,protocol:t.status_line.protocol,version:"3.0"}),headers:s})}},{key:"response_3to4",value:function(r,t){throw new e.NotImplementedError}},{key:"response_2to4",value:function(r,t){return e.response_3to4(e.response_2to3(r,t))}}]),e}();ShioriConverter.RequestNotSetError=function(e){function r(){return _classCallCheck(this,r),_possibleConstructorReturn(this,Object.getPrototypeOf(r).apply(this,arguments))}return _inherits(r,e),r}(Error),ShioriConverter.ResponseNotSetError=function(e){function r(){return _classCallCheck(this,r),_possibleConstructorReturn(this,Object.getPrototypeOf(r).apply(this,arguments))}return _inherits(r,e),r}(Error),ShioriConverter.NotImplementedError=function(e){function r(){return _classCallCheck(this,r),_possibleConstructorReturn(this,Object.getPrototypeOf(r).apply(this,arguments))}return _inherits(r,e),r}(Error),exports.ShioriConverter=ShioriConverter;
+	function _possibleConstructorReturn(e,r){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!r||"object"!=typeof r&&"function"!=typeof r?e:r}function _inherits(e,r){if("function"!=typeof r&&null!==r)throw new TypeError("Super expression must either be null or a function, not "+typeof r);e.prototype=Object.create(r&&r.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),r&&(Object.setPrototypeOf?Object.setPrototypeOf(e,r):e.__proto__=r)}function _classCallCheck(e,r){if(!(e instanceof r))throw new TypeError("Cannot call a class as a function")}if(false)var exports=window;var _createClass=function(){function e(e,r){for(var t=0;t<r.length;t++){var o=r[t];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(e,o.key,o)}}return function(r,t,o){return t&&e(r.prototype,t),o&&e(r,o),r}}();if(Object.defineProperty(exports,"__esModule",{value:!0}),"undefined"!="function")var ShioriJK=__webpack_require__(137);var ShioriConverter=function(){function e(){_classCallCheck(this,e)}return _createClass(e,null,[{key:"request_to",value:function(r,t){if(!r)throw new e.RequestNotSetError;return"4.0"===r.request_line.version?"4.0"===t?r:"3.0"===t?e.request_4to3(r):e.request_4to2(r):"3.0"===r.request_line.version?"4.0"===t?e.request_3to4(r):"3.0"===t?r:e.request_3to2(r):"4.0"===t?e.request_2to4(r):"3.0"===t?e.request_2to3(r):r}},{key:"response_to",value:function(r,t,o){if(!r)throw new e.RequestNotSetError;if(!t)throw new e.ResponseNotSetError;return"4.0"===t.status_line.version?"4.0"===o?t:"3.0"===o?e.response_4to3(r,t):e.response_4to2(r,t):"3.0"===t.status_line.version?"4.0"===o?e.response_3to4(r,t):"3.0"===o?t:e.response_3to2(r,t):"4.0"===o?e.response_2to4(r,t):"3.0"===o?e.response_2to3(r,t):t}},{key:"request_4to3",value:function(r){throw new e.NotImplementedError}},{key:"request_4to2",value:function(r){return e.request_3to2(e.request_4to3(r))}},{key:"method3to2",value:function(e){var r=e.headers.header.ID;return"version"===r?"GET Version":"OnTeach"===r?"TEACH":"ownerghostname"===r?"NOTIFY OwnerGhostName":"otherghostname"===r?"NOTIFY OtherGhostName":"NOTIFY"===e.request_line.method?void 0:r.match(/^[a-z]/)?"GET String":"GET Sentence"}},{key:"request_3to2",value:function(r){var t=e.method3to2(r);if(t){var o=r.headers.header.ID,n=new ShioriJK.Headers.Request,s=new ShioriJK.Message.Request({request_line:new ShioriJK.RequestLine({method:t,protocol:r.protocol,version:"2.6"}),headers:n});if("GET Version"===t);else if("GET Sentence"===t&&null!=o){if("OnCommunicate"===o){n.header.Sender=r.headers.header.Reference0,n.header.Sentence=r.headers.header.Reference1,n.header.Age=r.headers.header.Age||"0";for(var a in r.headers.header){var i=r.headers.header[a],u=void 0;(u=a.match(/^Reference(\d+)$/))?n.header["Reference"+(u[1]-2)]=""+i:n.header[a]=""+i}return s}n.header.Event=o}else{if("GET String"!==t||null==o){if("TEACH"===t){n.header.Word=r.headers.header.Reference0;for(var a in r.headers.header){var i=r.headers.header[a],u=void 0;(u=a.match(/^Reference(\d+)$/))?n.header["Reference"+(u[1]-1)]=""+i:n.header[a]=""+i}return s}if("NOTIFY OwnerGhostName"===t)return n.header.Ghost=r.headers.header.Reference0,s;if("NOTIFY OtherGhostName"===t){var h=[];for(var a in r.headers.header){var i=r.headers.header[a];a.match(/^Reference\d+$/)?h.push(""+i):n.header[a]=""+i}var c=h.map(function(e){return"GhostEx: "+e+"\r\n"}).join("");return s.request_line+"\r\n"+s.headers+c+"\r\n"}return}n.header.ID=o}for(var a in r.headers.header)if("ID"!==a){var i=r.headers.header[a];n.header[a]=""+i}return s}}},{key:"request_2to3",value:function(r){throw new e.NotImplementedError}},{key:"request_3to4",value:function(r){throw new e.NotImplementedError}},{key:"request_2to4",value:function(r){return e.request_3to4(e.request_2to3(r))}},{key:"response_4to3",value:function(r,t){throw new e.NotImplementedError}},{key:"response_4to2",value:function(r,t){return e.response_3to2(e.response_4to3(r,t))}},{key:"response_3to2",value:function(r,t){throw new e.NotImplementedError}},{key:"response_2to3",value:function(r,t){var o=e.request_to(r,"2.6"),n=void 0;switch(o.request_line.method){case"GET String":n="String";break;case"GET Word":n="Word";break;case"GET Status":n="Status";break;default:n="Sentence"}var s=new ShioriJK.Headers.Response;null!=t.headers.header[n]&&(s.header.Value=t.headers.header[n]);for(var a in t.headers.header){var i=t.headers.header[a],u=void 0;(u=a.match(/^Reference(\d+)$/))?s.header["Reference"+(u[1]+1)]=i:"To"===a?s.header.Reference0=i:a!==n&&(s.header[a]=i)}return new ShioriJK.Message.Response({status_line:new ShioriJK.StatusLine({code:t.status_line.code,protocol:t.status_line.protocol,version:"3.0"}),headers:s})}},{key:"response_3to4",value:function(r,t){throw new e.NotImplementedError}},{key:"response_2to4",value:function(r,t){return e.response_3to4(e.response_2to3(r,t))}}]),e}();ShioriConverter.RequestNotSetError=function(e){function r(){return _classCallCheck(this,r),_possibleConstructorReturn(this,Object.getPrototypeOf(r).apply(this,arguments))}return _inherits(r,e),r}(Error),ShioriConverter.ResponseNotSetError=function(e){function r(){return _classCallCheck(this,r),_possibleConstructorReturn(this,Object.getPrototypeOf(r).apply(this,arguments))}return _inherits(r,e),r}(Error),ShioriConverter.NotImplementedError=function(e){function r(){return _classCallCheck(this,r),_possibleConstructorReturn(this,Object.getPrototypeOf(r).apply(this,arguments))}return _inherits(r,e),r}(Error),exports.ShioriConverter=ShioriConverter;
 	//# sourceMappingURL=shiori_converter.js.map
 
 
@@ -13475,6 +13498,10 @@ var ikagakaApplication =
 	      var shiorif = kernel.components.Shiorif;
 	      // shiorif.allow_async_request = false; // 将来的に非同期リクエストをサポートする場合
 	      shiorif.auto_convert_request_version = '2.6';
+	      shiorif.auto_adjust_to_response_charset = true;
+	      shiorif.default_headers = {
+	        Sender: 'ikagaka'
+	      };
 	      shiorif.get3('version').then(function (_ref) {
 	        var response = _ref.response;
 	
@@ -13612,7 +13639,7 @@ var ikagakaApplication =
 	          var response = _ref2.response;
 	
 	          Information[id].length = 0; // clear
-	          response.to('3.0').headers.get_separated2('Value').forEach(function (site) {
+	          (response.to('3.0').headers.get_separated2('Value') || []).forEach(function (site) {
 	            return Information[id].push(new (Function.prototype.bind.apply(SiteMenu, [null].concat((0, _toConsumableArray3.default)(site))))());
 	          });
 	        });
@@ -14232,6 +14259,7 @@ var ikagakaApplication =
 	      // TODO refactor
 	      var named = this.kernel.components.Named;
 	      var shellState = this.kernel.components.ShellState;
+	      if (shellState.hasChoice) return; // 選択肢があればクリアされない
 	      if (!shellState.talking) {
 	        // 喋っていない状態でシングルクリックされたら
 	        named.scopes.forEach(function (scope) {
@@ -14244,6 +14272,7 @@ var ikagakaApplication =
 	    key: 'balloondblclick',
 	    value: function balloondblclick(event) {
 	      var shellState = this.kernel.components.ShellState;
+	      if (shellState.hasChoice) return; // 選択肢があればクリアされない
 	      if (shellState.talking) {
 	        // 喋っている状態でダブルクリックされたら
 	        var sakuraScriptExecuter = this.kernel.components.SakuraScriptExecuter;
@@ -14326,6 +14355,8 @@ var ikagakaApplication =
 	
 	var _sakurascriptExecuter = __webpack_require__(156);
 	
+	var _sakurascript = __webpack_require__(157);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var SakuraScriptState = exports.SakuraScriptState = function SakuraScriptState() {
@@ -14373,7 +14404,8 @@ var ikagakaApplication =
 	      this.kernel.registerComponent('SakuraScriptState', new SakuraScriptState());
 	      // make shortcut
 	      this.kernel.executeSakuraScript = function (transaction) {
-	        return _this2.kernel.components.SakuraScriptExecuter.execute(transaction.response.to('3.0').headers.header.Value);
+	        var value = transaction.response.to('3.0').headers.header.Value;
+	        if (value != null) _this2.kernel.components.SakuraScriptExecuter.execute(value.toString());
 	      };
 	    }
 	  }, {
@@ -14388,9 +14420,9 @@ var ikagakaApplication =
 	      shellState.hasChoice = false;
 	      shellState.balloonTimeout = 10000; // TODO 設定を読む
 	      shellState.choiceTimeout = 20000; // TODO 設定を読む
-	      named.scopes.forEach(function (scope) {
+	      this.kernel.components.Named.scopes.forEach(function (scope) {
 	        scope.blimp(0); // 初期化
-	        scope.blimp(-1); // 非表示
+	        scope.blimp(-1).clear(); // 非表示
 	      });
 	    }
 	  }, {
@@ -14401,7 +14433,7 @@ var ikagakaApplication =
 	      shellState.talking = false;
 	      if (aborted) {
 	        named.scopes.forEach(function (scope) {
-	          return scope.blimp(-1).clear();
+	          return scope.blimp(-1);
 	        }); // 再生中断なら即座にバルーンをクリア&非表示
 	      } else {
 	        shellState.setBalloonTimeout(this._break.bind(this)); // 再生中断でなくタイムアウトありならタイムアウトイベントを設定
@@ -14413,7 +14445,7 @@ var ikagakaApplication =
 	      var named = this.kernel.components.Named;
 	      var shellState = this.kernel.components.ShellState;
 	      named.scopes.forEach(function (scope) {
-	        return scope.blimp(-1).clear();
+	        return scope.blimp(-1);
 	      });
 	      if (shellState.hasChoice) {
 	        named.emit('choicetimeout'); // TODO: named?
@@ -14434,21 +14466,21 @@ var ikagakaApplication =
 	      var scope = named.scope();
 	      var surface = scope.surface();
 	      var blimp = scope.blimp();
-	      if (token instanceof SakuraScriptToken.Scope) {
+	      if (token instanceof _sakurascript.SakuraScriptToken.Scope) {
 	        named.scope(token.scope);
-	      } else if (token instanceof SakuraScriptToken.Surface) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.Surface) {
 	        scope.surface(token.surface);
-	      } else if (token instanceof SakuraScriptToken.SurfaceAlias) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.SurfaceAlias) {
 	        scope.surface(token.surface_alias);
-	      } else if (token instanceof SakuraScriptToken.Balloon) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.Balloon) {
 	        scope.blimp(token.balloon);
-	      } else if (token instanceof SakuraScriptToken.PlayAnimation) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.PlayAnimation) {
 	        surface.play(token.animation);
-	      } else if (token instanceof SakuraScriptToken.PlayAnimationWait) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.PlayAnimationWait) {
 	        surface.play(token.animation);
-	      } else if (token instanceof SakuraScriptToken.Animation) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.Animation) {
 	        // TODO cuttlebone not implemented
-	      } else if (token instanceof SakuraScriptToken.Bind) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.Bind) {
 	        if (token.dress_up == null) {
 	          // TODO toggle
 	        } else if (token.dress_up) {
@@ -14464,17 +14496,17 @@ var ikagakaApplication =
 	  }, {
 	    key: '_handle_wait',
 	    value: function _handle_wait(token) {
-	      if (token instanceof SakuraScriptToken.SimpleWait) {
+	      if (token instanceof _sakurascript.SakuraScriptToken.SimpleWait) {
 	        return true;
-	      } else if (token instanceof SakuraScriptToken.PreciseWait) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.PreciseWait) {
 	        return true;
-	      } else if (token instanceof SakuraScriptToken.WaitFromBeginning) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.WaitFromBeginning) {
 	        return true;
-	      } else if (token instanceof SakuraScriptToken.ResetBeginning) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.ResetBeginning) {
 	        return true;
-	      } else if (token instanceof SakuraScriptToken.WaitAnimationEnd) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.WaitAnimationEnd) {
 	        return true;
-	      } else if (token instanceof SakuraScriptToken.ToggleQuick) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.ToggleQuick) {
 	        return true;
 	      } else {
 	        return false;
@@ -14484,15 +14516,15 @@ var ikagakaApplication =
 	    key: '_handle_state',
 	    value: function _handle_state(token) {
 	      var shellState = this.kernel.components.ShellState;
-	      if (token instanceof SakuraScriptToken.ToggleSynchronize) {
+	      if (token instanceof _sakurascript.SakuraScriptToken.ToggleSynchronize) {
 	        if (shellState.synchronized) {
 	          shellState.synchronized = false;
 	        } else {
 	          shellState.synchronized = token.scopes;
 	        }
-	      } else if (token instanceof SakuraScriptToken.TimeCritical) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.TimeCritical) {
 	        shellState.timeCritical = !shellState.timeCritical;
-	      } else if (token instanceof SakuraScriptToken.NoChoiceTimeout) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.NoChoiceTimeout) {
 	        shellState.choiceTimeout = 0;
 	      } else {
 	        return false;
@@ -14507,59 +14539,59 @@ var ikagakaApplication =
 	      var surface = scope.surface();
 	      var blimp = scope.blimp();
 	      var shellState = this.kernel.components.ShellState;
-	      if (token instanceof SakuraScriptToken.WaitClick) {
+	      if (token instanceof _sakurascript.SakuraScriptToken.WaitClick) {
 	        named.scope(0).blimp().showWait();
-	      } else if (token instanceof SakuraScriptToken.EventChoice) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.EventChoice) {
 	        shellState.hasChoice = true;
 	        blimp.choice.apply(blimp, [token.text, token.event].concat((0, _toConsumableArray3.default)(token.references)));
-	      } else if (token instanceof SakuraScriptToken.ReferencesChoice) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.ReferencesChoice) {
 	        shellState.hasChoice = true;
-	        blimp.choiceBegin.apply(blimp, [token.text].concat((0, _toConsumableArray3.default)(token.references)));
-	      } else if (token instanceof SakuraScriptToken.ScriptChoice) {
+	        blimp.choice.apply(blimp, [token.text].concat((0, _toConsumableArray3.default)(token.references)));
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.ScriptChoice) {
 	        shellState.hasChoice = true;
-	        blimp.choiceBegin(token.text, 'script:' + token.script);
-	      } else if (token instanceof SakuraScriptToken.OldReferenceChoice) {
+	        blimp.choice(token.text, 'script:' + token.script);
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.OldReferenceChoice) {
 	        shellState.hasChoice = true;
-	        blimp.choiceBegin(token.text, token.reference);
+	        blimp.choice(token.text, token.reference);
 	        blimp.br();
-	      } else if (token instanceof SakuraScriptToken.BeginEventChoice) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.BeginEventChoice) {
 	        shellState.hasChoice = true;
 	        blimp.choiceBegin.apply(blimp, [token.event].concat((0, _toConsumableArray3.default)(token.references)));
-	      } else if (token instanceof SakuraScriptToken.BeginReferencesChoice) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.BeginReferencesChoice) {
 	        shellState.hasChoice = true;
 	        blimp.choiceBegin.apply(blimp, (0, _toConsumableArray3.default)(token.references));
-	      } else if (token instanceof SakuraScriptToken.BeginScriptChoice) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.BeginScriptChoice) {
 	        shellState.hasChoice = true;
 	        blimp.choiceBegin('script:' + token.script);
-	      } else if (token instanceof SakuraScriptToken.EndChoice) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.EndChoice) {
 	        blimp.choiceEnd();
-	      } else if (token instanceof SakuraScriptToken.BeginEventAnchor) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.BeginEventAnchor) {
 	        blimp.anchorBegin.apply(blimp, [token.event].concat((0, _toConsumableArray3.default)(token.references)));
-	      } else if (token instanceof SakuraScriptToken.BeginReferencesAnchor) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.BeginReferencesAnchor) {
 	        blimp.anchorBegin.apply(blimp, (0, _toConsumableArray3.default)(token.references));
-	      } else if (token instanceof SakuraScriptToken.BeginScriptAnchor) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.BeginScriptAnchor) {
 	        blimp.anchorBegin('script:' + token.script);
-	      } else if (token instanceof SakuraScriptToken.EndAnchor) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.EndAnchor) {
 	        blimp.anchorEnd();
-	      } else if (token instanceof SakuraScriptToken.LineBreak) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.LineBreak) {
 	        blimp.br();
-	      } else if (token instanceof SakuraScriptToken.HalfLineBreak) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.HalfLineBreak) {
 	        blimp.br(0.5);
-	      } else if (token instanceof SakuraScriptToken.PercentLineBreak) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.PercentLineBreak) {
 	        blimp.br(token.percent / 100);
-	      } else if (token instanceof SakuraScriptToken.ToggleNoAutoLineBreak) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.ToggleNoAutoLineBreak) {
 	        // TODO cuttlebone not implemented
-	      } else if (token instanceof SakuraScriptToken.Location) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.Location) {
 	        blimp.location(token.x, token.y);
-	      } else if (token instanceof SakuraScriptToken.Image) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.Image) {
 	        // TODO cuttlebone not implemented
-	      } else if (token instanceof SakuraScriptToken.InlineImage) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.InlineImage) {
 	        // TODO cuttlebone not implemented
-	      } else if (token instanceof SakuraScriptToken.Font) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.Font) {
 	        blimp.font.apply(blimp, [token.name].concat((0, _toConsumableArray3.default)(token.args)));
-	      } else if (token instanceof SakuraScriptToken.Marker) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.Marker) {
 	        blimp.marker();
-	      } else if (token instanceof SakuraScriptToken.Char) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.Char) {
 	        if (shellState.synchronized) {
 	          var scopes = void 0;
 	          if (shellState.synchronized.length) {
@@ -14592,37 +14624,39 @@ var ikagakaApplication =
 	      var surface = scope.surface();
 	      var blimp = scope.blimp();
 	      var shiorif = this.kernel.components.Shiorif;
-	      var sakuraScriptState = this.components.SakuraScriptState;
-	      if (token instanceof SakuraScriptToken.BeFar) {
+	      var sakuraScriptState = this.kernel.components.SakuraScriptState;
+	      var shellState = this.kernel.components.ShellState;
+	      if (token instanceof _sakurascript.SakuraScriptToken.BeFar) {
 	        // TODO cuttlebone not implemented
-	      } else if (token instanceof SakuraScriptToken.BeNear) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.BeNear) {
 	        // TODO cuttlebone not implemented
-	      } else if (token instanceof SakuraScriptToken.Clear) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.Clear) {
 	        blimp.clear();
-	      } else if (token instanceof SakuraScriptToken.End) {
+	        shellState.hasChoice = false;
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.End) {
 	        surface.yenE();
-	      } else if (token instanceof SakuraScriptToken.OldChoiceEnd) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.OldChoiceEnd) {
 	        surface.yenE();
-	      } else if (token instanceof SakuraScriptToken.OpenCommunicateBox) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.OpenCommunicateBox) {
 	        named.openCommunicateBox();
-	      } else if (token instanceof SakuraScriptToken.OpenTeachBox) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.OpenTeachBox) {
 	        // TODO cuttlebone not implemented
-	      } else if (token instanceof SakuraScriptToken.Halt) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.Halt) {
 	        surface.yenE();
 	        this.kernel.halt('script');
-	      } else if (token instanceof SakuraScriptToken.LockRepaint) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.LockRepaint) {
 	        // TODO cuttlebone not implemented
-	      } else if (token instanceof SakuraScriptToken.UnlockRepaint) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.UnlockRepaint) {
 	        // TODO cuttlebone not implemented
-	      } else if (token instanceof SakuraScriptToken.Move) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.Move) {
 	        // TODO
-	      } else if (token instanceof SakuraScriptToken.MoveAsync) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.MoveAsync) {
 	        // TODO
-	      } else if (token instanceof SakuraScriptToken.MoveAsyncCancel) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.MoveAsyncCancel) {
 	        // TODO
-	      } else if (token instanceof SakuraScriptToken.Raise) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.Raise) {
 	        shiorif.get3(token.event, token.references).then(this.kernel.executeSakuraScript);
-	      } else if (token instanceof SakuraScriptToken.TimerRaise) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.TimerRaise) {
 	        if (token.period && token.period >= 1) {
 	          (function () {
 	            var repeat_count = token.repeat_count || 0;
@@ -14642,18 +14676,18 @@ var ikagakaApplication =
 	            delete sakuraScriptState.timerRaiseTimerId[token.event];
 	          }
 	        }
-	      } else if (token instanceof SakuraScriptToken.Notify) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.Notify) {
 	        shiorif.notify3(token.event, token.references); // TODO: catch error
-	      } else if (token instanceof SakuraScriptToken.Set) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.Set) {
 	        var handler = SakuraScriptController._set_handler[token.id];
 	        if (handler) handler.bind(this)(token);
-	      } else if (token instanceof SakuraScriptToken.Open) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.Open) {
 	        var _handler = SakuraScriptController._open_handler[token.id];
 	        if (_handler) _handler.bind(this)(token);
-	      } else if (token instanceof SakuraScriptToken.Close) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.Close) {
 	        var _handler2 = SakuraScriptController._close_handler[token.id];
 	        if (_handler2) _handler2.bind(this)(token);
-	      } else if (token instanceof SakuraScriptToken.NotImplemented) {
+	      } else if (token instanceof _sakurascript.SakuraScriptToken.NotImplemented) {
 	        return true;
 	      } else {
 	        return false;
@@ -14764,6 +14798,8 @@ var ikagakaApplication =
 	    _this._quick = options.quick || false;
 	    _this._talk_wait = options.talk_wait || 0;
 	    _this._executing = false;
+	    _this._execute_id = 0;
+	    _this._will_abort_id = 0;
 	    return _this;
 	  }
 	
@@ -14787,13 +14823,14 @@ var ikagakaApplication =
 	     */
 	    value: function () {
 	      var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(script) {
-	        var sakurascript, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, token, period;
+	        var execute_id, sakurascript, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, token, period;
 	
 	        return _regenerator2.default.wrap(function _callee$(_context) {
 	          while (1) {
 	            switch (_context.prev = _context.next) {
 	              case 0:
 	                this.abort_execute(); // abort previous session
+	                execute_id = ++this._execute_id;
 	                sakurascript = _sakurascript.SakuraScript.parse(script);
 	
 	                this.emit('begin_execute');
@@ -14801,77 +14838,77 @@ var ikagakaApplication =
 	                _iteratorNormalCompletion = true;
 	                _didIteratorError = false;
 	                _iteratorError = undefined;
-	                _context.prev = 7;
+	                _context.prev = 8;
 	                _iterator = (0, _getIterator3.default)(sakurascript.tokens);
 	
-	              case 9:
+	              case 10:
 	                if (_iteratorNormalCompletion = (_step = _iterator.next()).done) {
-	                  _context.next = 38;
+	                  _context.next = 39;
 	                  break;
 	                }
 	
 	                token = _step.value;
 	
 	                if (!this._wait_until_action_name) {
-	                  _context.next = 17;
+	                  _context.next = 18;
 	                  break;
 	                }
 	
-	                _context.next = 14;
+	                _context.next = 15;
 	                return this._wait_until_action(this._wait_until_action_name);
 	
-	              case 14:
+	              case 15:
 	                this._wait_until_action_name = null;
-	                _context.next = 27;
+	                _context.next = 28;
 	                break;
 	
-	              case 17:
+	              case 18:
 	                if (this.quick) {
-	                  _context.next = 27;
+	                  _context.next = 28;
 	                  break;
 	                }
 	
 	                if (!(this._wait_period != null)) {
-	                  _context.next = 24;
+	                  _context.next = 25;
 	                  break;
 	                }
 	
-	                _context.next = 21;
+	                _context.next = 22;
 	                return this._wait(this._wait_period);
 	
-	              case 21:
+	              case 22:
 	                this._wait_period = null;
-	                _context.next = 27;
+	                _context.next = 28;
 	                break;
 	
-	              case 24:
+	              case 25:
 	                if (!(token instanceof _sakurascript.SakuraScriptToken.Char && !this._quick_section)) {
-	                  _context.next = 27;
+	                  _context.next = 28;
 	                  break;
 	                }
 	
-	                _context.next = 27;
+	                _context.next = 28;
 	                return this._wait(this.talk_wait);
 	
-	              case 27:
-	                if (!this._will_abort) {
-	                  _context.next = 29;
+	              case 28:
+	                if (!(this._will_abort_id >= execute_id)) {
+	                  _context.next = 30;
 	                  break;
 	                }
 	
-	                return _context.abrupt('break', 38);
+	                return _context.abrupt('break', 39);
 	
-	              case 29:
+	              case 30:
 	                this.emit('execute', token);
 	
 	                if (!(token instanceof _sakurascript.SakuraScriptToken.Char)) {
-	                  _context.next = 34;
+	                  _context.next = 35;
 	                  break;
 	                }
 	
-	                return _context.abrupt('continue', 35);
+	                return _context.abrupt('continue', 36);
 	
-	              case 34:
+	              case 35:
 	                if (token instanceof _sakurascript.SakuraScriptToken.PlayAnimationWait) {
 	                  this._wait_until_action_name = '_animation_finished_' + token.animation;
 	                } else if (token instanceof _sakurascript.SakuraScriptToken.WaitAnimationEnd) {
@@ -14893,55 +14930,55 @@ var ikagakaApplication =
 	                  this._quick_section = !this._quick_section;
 	                }
 	
-	              case 35:
+	              case 36:
 	                _iteratorNormalCompletion = true;
-	                _context.next = 9;
+	                _context.next = 10;
 	                break;
 	
-	              case 38:
-	                _context.next = 44;
+	              case 39:
+	                _context.next = 45;
 	                break;
 	
-	              case 40:
-	                _context.prev = 40;
-	                _context.t0 = _context['catch'](7);
+	              case 41:
+	                _context.prev = 41;
+	                _context.t0 = _context['catch'](8);
 	                _didIteratorError = true;
 	                _iteratorError = _context.t0;
 	
-	              case 44:
-	                _context.prev = 44;
+	              case 45:
 	                _context.prev = 45;
+	                _context.prev = 46;
 	
 	                if (!_iteratorNormalCompletion && _iterator.return) {
 	                  _iterator.return();
 	                }
 	
-	              case 47:
-	                _context.prev = 47;
+	              case 48:
+	                _context.prev = 48;
 	
 	                if (!_didIteratorError) {
-	                  _context.next = 50;
+	                  _context.next = 51;
 	                  break;
 	                }
 	
 	                throw _iteratorError;
 	
-	              case 50:
-	                return _context.finish(47);
-	
 	              case 51:
-	                return _context.finish(44);
+	                return _context.finish(48);
 	
 	              case 52:
-	                this._finalize_execute_state();
-	                this.emit('end_execute', this._will_abort);
+	                return _context.finish(45);
 	
-	              case 54:
+	              case 53:
+	                this._finalize_execute_state();
+	                this.emit('end_execute', this._will_abort_id >= execute_id);
+	
+	              case 55:
 	              case 'end':
 	                return _context.stop();
 	            }
 	          }
-	        }, _callee, this, [[7, 40, 44, 52], [45,, 47, 51]]);
+	        }, _callee, this, [[8, 41, 45, 53], [46,, 48, 52]]);
 	      }));
 	
 	      function execute(_x2) {
@@ -14957,7 +14994,6 @@ var ikagakaApplication =
 	      this._wait_period = 0;
 	      this._wait_until_action_name = null;
 	      this._quick_section = false;
-	      this._will_abort = false;
 	      this._current_wait = null;
 	      this._execute_start_time = new Date();
 	    }
@@ -15064,7 +15100,7 @@ var ikagakaApplication =
 	  }, {
 	    key: 'abort_execute',
 	    value: function abort_execute() {
-	      this._will_abort = true;
+	      this._will_abort_id = this._execute_id;
 	      if (this._current_wait) this._current_wait();
 	    }
 	  }, {
@@ -16766,12 +16802,12 @@ var ikagakaApplication =
 	    value: function otherghostname() {
 	      // TODO ここでこの実装してよいのか
 	      var namedKernelManager = this.kernel.components.NamedKernelManager;
-	      var names = namedKernelManager.namedIds.map(function (namedId) {
+	      var names = namedKernelManager.namedIds().map(function (namedId) {
 	        return namedKernelManager.kernel(namedId);
 	      }).filter(function (kernel) {
 	        return kernel.ghostDescript;
 	      }).map(function (kernel) {
-	        return [kernel.ghostDescript.name, kernel.Named.scopes[0].surface().surfaceId, kernel.Named.scopes[1] ? kernel.Named.scopes[1].surface().surfaceId : ''].join('\u0001');
+	        return [kernel.ghostDescript.name, kernel.components.Named.scopes[0].surface().surfaceId, kernel.components.Named.scopes[1] ? kernel.components.Named.scopes[1].surface().surfaceId : ''].join('\u0001');
 	      });
 	      return this.kernel.components.Shiorif.notify3('otherghostname', [names]);
 	    }
