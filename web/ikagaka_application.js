@@ -14259,6 +14259,7 @@ var ikagakaApplication =
 	      // TODO refactor
 	      var named = this.kernel.components.Named;
 	      var shellState = this.kernel.components.ShellState;
+	      this.kernel.components.SakuraScriptExecuter.balloon_clicked();
 	      if (shellState.hasChoice) return; // 選択肢があればクリアされない
 	      if (!shellState.talking) {
 	        // 喋っていない状態でシングルクリックされたら
@@ -14284,17 +14285,17 @@ var ikagakaApplication =
 	  }, {
 	    key: 'filedrop',
 	    value: function filedrop(event) {
-	      var _this4 = this;
-	
 	      // TODO: インストール以外
 	      var namedKernelManager = this.kernel.components.NamedKernelManager;
 	      // TODO: jQuery / DOM操作系は何処でするのが良いのか
 	      event.event.stopPropagation();
 	      event.event.preventDefault();
 	      event.event.originalEvent.dataTransfer.dropEffect = 'copy';
-	      ev.event.originalEvent.dataTransfer.files.forEach(function (file) {
-	        return namedKernelManager.installNamed(file, _this4.kernel);
-	      });
+	      var files = event.event.originalEvent.dataTransfer.files;
+	      for (var i = 0; i < files.length; ++i) {
+	        var file = files[i];
+	        namedKernelManager.installNamed(file, this.kernel);
+	      }
 	    }
 	  }, {
 	    key: '_mouseEventHeaders',
