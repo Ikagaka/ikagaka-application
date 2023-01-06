@@ -14,7 +14,7 @@
     "cuttlebone": "^0.2.7",
     "ghost-kernel": "^3.2.0",
     "ghost-kernel-default-plugins": "^1.6.0",
-    "jszip": "^2.6.1",
+    "jszip": "^3.8.0",
     "kawariworker.js": "^0.2.0",
     "named-kernel-manager": "^0.1.2",
     "named-kernel-manager-default-plugins": "^0.3.0",
